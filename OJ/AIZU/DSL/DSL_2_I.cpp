@@ -27,15 +27,23 @@ struct ODT {
     while (it->fi != r + 1) it = mp.erase(it);
     mp[l] = v;
   }
-  ll lower_bound(ll x) {
-    return prev(mp.upper_bound(x))->se;
+  ll sum(ll l, ll r) {
+    split(l), split(r + 1);
+    auto it = mp.find(l);
+    ll res = 0;
+    while (it->fi != r + 1) {
+      auto nex = next(it);
+      res += it->se * (nex->fi - it->fi);
+      it = nex;
+    }
+    return res;
   }
 };
 
 void SingleTest(int TestCase) {
   int n; cin >> n;
   int q; cin >> q;
-  ODT tr(0, (1LL << 31) - 1);
+  ODT tr(0, 0);
   for (int op; q--; ) {
     cin >> op;
     if (op == 0) {
@@ -43,8 +51,8 @@ void SingleTest(int TestCase) {
       cin >> s >> t >> x;
       tr.assign(s, t, x);
     } else {
-      int id; cin >> id;
-      cout << tr.lower_bound(id) << '\n';
+      int s, t; cin >> s >> t;
+      cout << tr.sum(s, t) << '\n';
     }
   }
 }

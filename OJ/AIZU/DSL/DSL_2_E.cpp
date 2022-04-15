@@ -17,34 +17,32 @@ using namespace std;
 using db = double;
 using ll = long long;
 
-struct ODT {
-  map<ll, ll> mp;
-  ODT(ll _, ll unit) { mp[_ - 1] = unit; }
-  void split(ll x) { mp[x] = prev(mp.upper_bound(x))->se; }
-  void assign(ll l, ll r, ll v) {
-    split(l), split(r + 1);
-    auto it = mp.find(l);
-    while (it->fi != r + 1) it = mp.erase(it);
-    mp[l] = v;
+struct BIT {
+  vec<ll> d; int n;
+  BIT(int _) : d(_ + 2, 0), n(_) {}
+  void add(int p, ll dif) {
+    for (; p <= n; p += p & -p) d[p] += dif;
   }
-  ll lower_bound(ll x) {
-    return prev(mp.upper_bound(x))->se;
+  ll query(int p) {
+    ll res = 0;
+    for (; p > 0; p &= p - 1) res += d[p];
+    return res;
   }
 };
 
 void SingleTest(int TestCase) {
   int n; cin >> n;
   int q; cin >> q;
-  ODT tr(0, (1LL << 31) - 1);
+  BIT tr(n);
   for (int op; q--; ) {
     cin >> op;
     if (op == 0) {
       int s, t; ll x;
       cin >> s >> t >> x;
-      tr.assign(s, t, x);
+      tr.add(s, x), tr.add(t + 1, -x);
     } else {
       int id; cin >> id;
-      cout << tr.lower_bound(id) << '\n';
+      cout << tr.query(id) << '\n';
     }
   }
 }

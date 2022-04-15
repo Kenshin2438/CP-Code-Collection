@@ -27,8 +27,15 @@ struct ODT {
     while (it->fi != r + 1) it = mp.erase(it);
     mp[l] = v;
   }
-  ll lower_bound(ll x) {
-    return prev(mp.upper_bound(x))->se;
+  ll find(ll l, ll r) {
+    split(l), split(r + 1);
+    auto it = mp.find(l);
+    ll res = (1LL << 31) - 1;
+    while (it->fi != r + 1) {
+      res = min(res, it->se);
+      it = next(it);
+    }
+    return res;
   }
 };
 
@@ -43,8 +50,8 @@ void SingleTest(int TestCase) {
       cin >> s >> t >> x;
       tr.assign(s, t, x);
     } else {
-      int id; cin >> id;
-      cout << tr.lower_bound(id) << '\n';
+      int s, t; cin >> s >> t;
+      cout << tr.find(s, t) << '\n';
     }
   }
 }

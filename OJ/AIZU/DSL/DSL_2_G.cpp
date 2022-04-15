@@ -17,34 +17,34 @@ using namespace std;
 using db = double;
 using ll = long long;
 
-struct ODT {
-  map<ll, ll> mp;
-  ODT(ll _, ll unit) { mp[_ - 1] = unit; }
-  void split(ll x) { mp[x] = prev(mp.upper_bound(x))->se; }
-  void assign(ll l, ll r, ll v) {
-    split(l), split(r + 1);
-    auto it = mp.find(l);
-    while (it->fi != r + 1) it = mp.erase(it);
-    mp[l] = v;
+struct BIT {
+  vec<ll> s, d; int n;
+  BIT(int _) : d(_ + 2, 0), n(_) { s = d; }
+  void add(int p, ll dif) {
+    for (ll x = dif * p; p <= n; p += p & -p)
+      d[p] += dif, s[p] += x;
   }
-  ll lower_bound(ll x) {
-    return prev(mp.upper_bound(x))->se;
+  ll query(int id) {
+    ll D = 0, S = 0;
+    for (int p = id; p > 0; p &= p - 1)
+      D += d[p], S += s[p];
+    return D * (id + 1) - S;
   }
 };
 
 void SingleTest(int TestCase) {
   int n; cin >> n;
   int q; cin >> q;
-  ODT tr(0, (1LL << 31) - 1);
+  BIT tr(n);
   for (int op; q--; ) {
     cin >> op;
     if (op == 0) {
       int s, t; ll x;
       cin >> s >> t >> x;
-      tr.assign(s, t, x);
+      tr.add(s, x), tr.add(t + 1, -x);
     } else {
-      int id; cin >> id;
-      cout << tr.lower_bound(id) << '\n';
+      int s, t; cin >> s >> t;
+      cout << tr.query(t) - tr.query(s - 1) << '\n';
     }
   }
 }
