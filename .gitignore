@@ -2,3 +2,5 @@
 *.exe
 *.o
 Idea/
+*.gch
+*.hpp.gch
