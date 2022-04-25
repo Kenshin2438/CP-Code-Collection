@@ -7,6 +7,7 @@ using namespace std;
 #define fi first
 #define se second
 #define all(a) a.begin(), a.end()
+#define SZ(x) static_cast<int>((x).size())
 
 using db = double;
 using ll = long long;
