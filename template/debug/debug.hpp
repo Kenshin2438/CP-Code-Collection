@@ -1,4 +1,19 @@
-#include "../main.hpp"
+#pragma once
+
+// #include <bits/stdc++.h>
+#include <iostream>
+#include <string>
+#include <vector>
+#include <bitset>
+#include <tuple>
+#include <deque>
+#include <queue>
+#include <list>
+#include <map>
+#include <set>
+#include <unordered_map>
+#include <unordered_set>
+using namespace std;
 
 string to_string(const string &s) { return '"' + s + '"'; }
 string to_string(const char *s) { return to_string((string) s); }
@@ -20,6 +35,11 @@ template <size_t N> string to_string(bitset<N> v) {
 template <typename A, typename B>
 string to_string(pair<A, B> p) {
   return "(" + to_string(p.first) + ", " + to_string(p.second) + ")";
+}
+template <typename A, typename B, typename C>
+string to_string(tuple<A, B> p) {
+  return "(" + to_string(get<0>(p)) + ", "
+             + to_string(get<1>(p)) + ", ";
 }
 template <typename A, typename B, typename C>
 string to_string(tuple<A, B, C> p) {
