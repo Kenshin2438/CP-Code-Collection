@@ -40,6 +40,7 @@ struct edge {
 struct node {
   edge e; ll val;
   node *l, *r;
+  node(edge _) : e(_), val(0) { l = r = nullptr; }
   void prop() {
     e.w += val;
     if (l != nullptr) l->val += val;
@@ -48,45 +49,55 @@ struct node {
   }
   edge top() { return prop(), e; }
 };
-node * merge(node *a, node *b) {
-  if (b == nullptr) return a;
-  if (a == nullptr) return b;
+node *merge(node *a, node *b) {
+  if (!a || !b) return a ?: b;
   a->prop(), b->prop();
   if (a->e.w > b->e.w) swap(a, b);
-  swap(a->l, a->r = merge(b, a->r));
+  a->r = merge(b, a->r);
+  swap(a->l, a->r);
   return a;
 }
 void pop(node * &a) {
-  a->prop();
-  a = merge(a->l, a->r);
+  a->prop(), a = merge(a->l, a->r);
 }
 
-int n, m;
+int n, m, rt;
 vec<edge> Edges;
 
-int dmst(int s) {
-  DSU set(n);
+int dmst() {
+  DSU dsu(n);
   vec<node *> heap(n);
-  for (auto &e : Edges) {
-    node * cur = new node{e};
-    heap[e.v] = merge(heap[e.v], cur);
+  for (const edge & e : Edges) {
+    heap[e.v] = merge(heap[e.v], new node(e));
   }
   vec<int> seen(n, -1), path(n);
-  int res = 0; seen[s] = s;
+  int res = 0; seen[rt] = rt;
   for (int i = 0; i < n; i++) {
-    int u = i, 
+    int u = i, idx = 0;
+    while (seen[u] < 0) {
+      path[idx++] = u, seen[u] = i;
+      if (!heap[u]) return -1;
+      edge e = heap[u]->top();
+      heap[u]->val -= e.w, pop(heap[u]);
+      res += e.w, u = dsu.f(e.u);
+      if (seen[u] != i) continue;
+      node * cyc = nullptr;
+      do {
+        cyc = merge(cyc, heap[path[--idx]]);
+      } while (dsu.unite(u, path[idx]));
+      u = dsu.f(u), heap[u] = cyc, seen[u] = -1;
+    }
   }
   return res;
 }
 
 void SingleTest(int TestCase) {
-  cin >> n >> m;
-  int s; cin >> s;
+  cin >> n >> m >> rt;
   for (int u, v, w; m--; ) {
-    cin >> u >> v >> w;
+    cin >> u >> v >> w; // 0-indexed
     Edges.emplace_back(u, v, w);
   }
-  cout << dmst(s) << '\n';
+  cout << dmst() << '\n';
 }
 
 void init() {}

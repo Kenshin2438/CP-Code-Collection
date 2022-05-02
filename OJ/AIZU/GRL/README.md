@@ -12,22 +12,31 @@
 + Kruskal
 
 ## 2_B : Minimum-Cost Arborescence
++ Leftist Tree & Disjoint Set Union
 
 ## 3_A : Articulation Points
++ Tarjan(cut-node)
 
 ## 3_B : Bridges
++ Tarjan(cut-edge)
 
 ## 3_C : Strongly Connected Components
++ Kosaraju
 
 ## 4_A : Cycle Detection for a Directed Graph
++ Topological sorting
 
 ## 4_B : Topological Sort
++ Topological sorting
 
 ## 5_A : Diameter of a Tree
++ DFS (**non-negative weight**)
 
 ## 5_B : Height of a Tree
++ reRoot-Tree-DP
 
 ## 5_C : Lowest Common Ancestor
++ ETT & Sparse Table (RMQ)
 
 ## 5_D : Range Query on a Tree
 
