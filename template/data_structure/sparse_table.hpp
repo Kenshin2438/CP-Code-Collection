@@ -5,9 +5,9 @@ template <typename T, T (*f)(T, T)> struct ST {
 
   ST() {}
   ST(const vec<T> &v) : st(1, v) {
-    for (int pw = 1, k = 1; (pw << 1) <= SZ(v); pw <<= 1, k++) {
-      st.emplace_back(SZ(v) - (pw << 1) + 1);
-      for (int i = 0; i < SZ(st[k]); i++) {
+    for (int pw = 1, k = 1; (pw << 1) <= sz(v); pw <<= 1, k++) {
+      st.emplace_back(sz(v) - (pw << 1) + 1);
+      for (int i = 0; i < sz(st[k]); i++) {
         st[k][i] = f(st[k - 1][i], st[k - 1][i + pw]);
       }
     }

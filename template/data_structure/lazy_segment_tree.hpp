@@ -26,10 +26,10 @@ struct LazySegTree {
  public:
   LazySegTree(const vec<T> &v) {
     n = 1, _log = 0;
-    while (n < SZ(v)) n <<= 1, _log++;
+    while (n < sz(v)) n <<= 1, _log++;
     T ti = ut(); E ei = ue();
     val.resize(n << 1, ti), laz.resize(n, ei);
-    for (int i = 0; i < SZ(v); i++) val[i + n] = v[i];
+    for (int i = 0; i < sz(v); i++) val[i + n] = v[i];
     for (int i = n - 1; i > 0; i--) _update(i);
   }
   void update(int l, int r, const E &dif) {

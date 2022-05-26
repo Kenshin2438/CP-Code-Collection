@@ -10,9 +10,9 @@ struct SegTree {
  public:
   SegTree(const vec<T> &v) {
     n = 1, _log = 0;
-    while (n < SZ(v)) n <<= 1, _log++;
+    while (n < sz(v)) n <<= 1, _log++;
     val.resize(n << 1, ut());
-    for (int i = 0; i < SZ(v); i++) val[i + n] = v[i];
+    for (int i = 0; i < sz(v); i++) val[i + n] = v[i];
     for (int i = n - 1; i > 0; i--) _update(i);
   }
   void set(int p, const T &dif) {

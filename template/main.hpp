@@ -6,8 +6,9 @@ using namespace std;
 #define str string
 #define fi first
 #define se second
-#define all(a) a.begin(), a.end()
-#define SZ(x) static_cast<int>((x).size())
+#define all(a) (a).begin(), (a).end()
+#define rall(a) (a).rbegin(), (a).rend()
+#define sz(x) static_cast<int>((x).size())
 
 using db = double;
 using ll = long long;
