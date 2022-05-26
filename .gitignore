@@ -1,6 +1,6 @@
 .vscode
 *.exe
 *.o
-Idea/
 *.gch
 *.hpp.gch
+*.cpp__tests
