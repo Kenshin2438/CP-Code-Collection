@@ -52,21 +52,19 @@ struct Weighted_DSU {
 };
 
 void SingleTest(__attribute__((unused)) int TestCase) {
-  int n, q; cin >> n >> q;
+  int n; cin >> n;
+  vec<int> p(n);
+  for (int &x : p) cin >> x, --x;
+
   Weighted_DSU dsu(n);
-  for (int op, x, y; q--; ) {
-    cin >> op >> x >> y;
-    if (op == 0) {
-      int z; cin >> z;
-      dsu.unite(x, y, z);
-    } else {
-      if (dsu.same(x, y)) {
-        cout << dsu.diff(x, y) << '\n';
-      } else {
-        cout << "?" << '\n';
-      }
+  int ans = (int) 2e9;
+  for (int i = 0; i < n; i++) {
+    if (dsu.unite(i, p[i], -1) == false) {
+      ans = min(ans, dsu.diff(i, p[i]) + 1);
     }
   }
+
+  cout << ans << '\n';
 }
 
 void init() {}

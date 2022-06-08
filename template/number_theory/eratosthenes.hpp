@@ -1,9 +1,9 @@
 #include "../main.hpp"
 
-const int LIM = 1e6;
+constexpr int LIM = 1e8;
 bitset<LIM> isPrime;
 vec<int> eratosthenes() {
-  const int S = (int)round(sqrt(LIM)), R = LIM / 2;
+  constexpr int S = 1e4, R = LIM / 2;
   vec<int> pr = {2}, sieve(S + 1);
   pr.reserve(int(LIM / log(LIM) * 1.1));
   vec<PII> cp;

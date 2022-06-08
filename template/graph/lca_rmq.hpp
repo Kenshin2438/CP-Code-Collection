@@ -19,7 +19,7 @@ struct Graph {
     }
     dfn.assign(n, 0);
     auto dfs = [&](auto &&self, int u, int fa) -> void {
-      dfn[u] = SZ(euler_tour);
+      dfn[u] = sz(euler_tour);
       euler_tour.emplace_back(dfn[u], u);
       for (const int &v : G[u]) {
         if (v == fa) continue;

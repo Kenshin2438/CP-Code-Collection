@@ -2,7 +2,7 @@
 #include "../data_structure/disjoint_set_union.hpp"
 
 tuple<ll, vec<PII>> ManMST(vec<int> xs, vec<int> ys) {
-  vec<int> id(SZ(xs)); iota(all(id), 0);
+  vec<int> id(sz(xs)); iota(all(id), 0);
   vec<tuple<ll, int, int>> edges;
   for (int s = 0; s < 2; s++) {
     for (int t = 0; t < 2; t++) {
@@ -25,7 +25,7 @@ tuple<ll, vec<PII>> ManMST(vec<int> xs, vec<int> ys) {
     for (auto &x : xs) x = -x;
   }
   ll mst = 0;
-  DSU dsu = DSU(SZ(xs));
+  DSU dsu = DSU(sz(xs));
   vec<PII> P;
   sort(all(edges));
   for (auto [w, u, v] : edges) {
