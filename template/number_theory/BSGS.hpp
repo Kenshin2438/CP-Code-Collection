@@ -13,7 +13,7 @@ ll BSGS(ll a, ll n, ll mod) {
   a %= mod, n %= mod;
   if (n == 1LL || mod == 1LL) return 0LL;
 
-  map<ll, ll> bs;
+  unordered_map<ll, ll> bs;
   ll S = sqrt(mod) + 1;
 
   ll base = n;
