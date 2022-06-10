@@ -2,11 +2,11 @@
 
 constexpr int LIM = 1e8;
 bitset<LIM> isPrime;
-vec<int> eratosthenes() {
+vector<int> eratosthenes() {
   constexpr int S = 1e4, R = LIM / 2;
-  vec<int> pr = {2}, sieve(S + 1);
+  vector<int> pr = {2}, sieve(S + 1);
   pr.reserve(int(LIM / log(LIM) * 1.1));
-  vec<PII> cp;
+  vector<pair<int, int> > cp;
   for (int i = 3; i <= S; i += 2)
     if (!sieve[i]) {
       cp.push_back({i, i * i / 2});

@@ -41,8 +41,7 @@ ll Cipolla(ll a, ll p) {
   a = (a % p + p) % p;
   if (a == 0) return 0LL;
 
-  if (qpow(a, (p - 1) / 2, p) != 1LL) return -1LL;
-  // No Solution
+  if (qpow(a, (p - 1) / 2, p) != 1LL) return -1LL;  // No Solution
 
   if (p % 4 == 3) return qpow(a, (p + 1) / 4, p);
 

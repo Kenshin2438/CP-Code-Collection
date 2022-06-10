@@ -1,22 +1,21 @@
 #pragma once
 
-// #include <bits/stdc++.h>
-#include <iostream>
-#include <string>
-#include <vector>
 #include <bitset>
-#include <tuple>
 #include <deque>
-#include <queue>
+#include <iostream>
 #include <list>
 #include <map>
+#include <queue>
 #include <set>
+#include <string>
+#include <tuple>
 #include <unordered_map>
 #include <unordered_set>
+#include <vector>
 using namespace std;
 
 string to_string(const string &s) { return '"' + s + '"'; }
-string to_string(const char *s) { return to_string((string) s); }
+string to_string(const char *s) { return to_string((string)s); }
 string to_string(const char &c) { return "'" + to_string(c) + "'"; }
 string to_string(bool b) { return (b ? "true" : "false"); }
 string to_string(const vector<bool> &v) {
@@ -27,7 +26,8 @@ string to_string(const vector<bool> &v) {
   }
   return res + "}";
 }
-template <size_t N> string to_string(bitset<N> v) {
+template <size_t N>
+string to_string(bitset<N> v) {
   string res = "";
   for (size_t i = 0; i < N; i++) res += static_cast<char>('0' + v[i]);
   return res;
@@ -38,23 +38,20 @@ string to_string(pair<A, B> p) {
 }
 template <typename A, typename B, typename C>
 string to_string(tuple<A, B> p) {
-  return "(" + to_string(get<0>(p)) + ", "
-             + to_string(get<1>(p)) + ", ";
+  return "(" + to_string(get<0>(p)) + ", " + to_string(get<1>(p)) + ", ";
 }
 template <typename A, typename B, typename C>
 string to_string(tuple<A, B, C> p) {
-  return "(" + to_string(get<0>(p)) + ", "
-             + to_string(get<1>(p)) + ", "
-             + to_string(get<2>(p)) + ")";
+  return "(" + to_string(get<0>(p)) + ", " + to_string(get<1>(p)) + ", " +
+         to_string(get<2>(p)) + ")";
 }
 template <typename A, typename B, typename C, typename D>
 string to_string(tuple<A, B, C, D> p) {
-  return "(" + to_string(get<0>(p)) + ", "
-             + to_string(get<1>(p)) + ", "
-             + to_string(get<2>(p)) + ", "
-             + to_string(get<3>(p)) + ")";
+  return "(" + to_string(get<0>(p)) + ", " + to_string(get<1>(p)) + ", " +
+         to_string(get<2>(p)) + ", " + to_string(get<3>(p)) + ")";
 }
-template <typename A> string to_string(A v) {
+template <typename A>
+string to_string(A v) {
   bool first = true;
   string res = "{";
   for (const auto &x : v) {

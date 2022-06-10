@@ -1,6 +1,7 @@
 #include "../main.hpp"
 
-template <int mod> struct m32 {
+template <int mod>
+struct m32 {
   int v = 0;
   mutable int iv = 0;
 
@@ -10,12 +11,8 @@ template <int mod> struct m32 {
   m32(long long _ = 0LL) {
     if ((v = _ % mod) < 0) v += mod;
   }
-  m32 operator-() const {
-    return v ? m32(mod - v) : m32();
-  }
-  m32 &operator=(const int &m) {
-    return this = m32(m), *this;
-  }
+  m32 operator-() const { return v ? m32(mod - v) : m32(); }
+  m32 &operator=(const int &m) { return this = m32(m), *this; }
   m32 &operator+=(const m32 &m) {
     v = (v += m.v) >= mod ? v - mod : v;
     return *this;
@@ -32,24 +29,12 @@ template <int mod> struct m32 {
     v = ll(v) * m.inv() % mod;
     return *this;
   }
-  m32 operator+(const m32 &m) const {
-    return m32(*this) += m;
-  }
-  m32 operator-(const m32 &m) const {
-    return m32(*this) -= m;
-  }
-  m32 operator*(const m32 &m) const {
-    return m32(*this) *= m;
-  }
-  m32 operator/(const m32 &m) const {
-    return m32(*this) /= m;
-  }
-  bool operator==(const m32 &m) const {
-    return m.v == v;
-  }
-  bool operator!=(const m32 &m) const {
-    return m.v != v;
-  }
+  m32 operator+(const m32 &m) const { return m32(*this) += m; }
+  m32 operator-(const m32 &m) const { return m32(*this) -= m; }
+  m32 operator*(const m32 &m) const { return m32(*this) *= m; }
+  m32 operator/(const m32 &m) const { return m32(*this) /= m; }
+  bool operator==(const m32 &m) const { return m.v == v; }
+  bool operator!=(const m32 &m) const { return m.v != v; }
   m32 pow(long long n) const {
     if (n == 1) return *this;
     if (n == 0) return m32(1);

@@ -1,13 +1,13 @@
 #include "../main.hpp"
 
 class LowLink {
-private:
-  vec<int> articulation_points;
-  vec<PII> bridges;
+ private:
+  vector<int> articulation_points;
+  vector<pair<int, int>> bridges;
 
   int n, m, idx;
-  vec<vec<int>> G;
-  vec<int> dfn, low;
+  vector<vector<int>> G;
+  vector<int> dfn, low;
 
   void tarjan(int u, int fa) {
     dfn[u] = low[u] = ++idx;
@@ -29,7 +29,7 @@ private:
     }
   }
 
-public:
+ public:
   LowLink(int _n, int _m) : n(_n), m(_m), G(n) {
     for (int u, v, _ = 0; _ < m; _++) {
       cin >> u >> v;
@@ -37,12 +37,12 @@ public:
       G[v].emplace_back(u);
     }
   }
-  pair<vec<int>, vec<PII>> low_link() {
+  pair<vector<int>, vector<pair<int, int>>> low_link() {
     dfn.assign(n, 0);
     low.assign(n, 0);
     articulation_points.clear();
     bridges.clear();
-    idx = 0; // init
+    idx = 0;  // init
     for (int i = 0; i < n; i++) {
       if (dfn[i] == 0) tarjan(i, -1);
     }

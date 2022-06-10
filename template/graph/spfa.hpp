@@ -6,13 +6,13 @@ struct edge {
   edge(int to, int _ = inf) : to(to), weight(_) {}
 };
 int n, m;
-vec<vec<edge>> G;
-vec<int> dis;
+vector<vector<edge>> G;
+vector<int> dis;
 
 bool spfa(int s) {
   dis.assign(n, inf);
-  vec<int> cnt(n, 0);
-  vec<bool> inq(n, false);
+  vector<int> cnt(n, 0);
+  vector<bool> inq(n, false);
   queue<int> Q;
   Q.push(s), inq[s] = true, dis[s] = 0;
   while (!Q.empty()) {

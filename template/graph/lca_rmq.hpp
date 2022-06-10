@@ -1,17 +1,18 @@
-#include "../main.hpp"
 #include "../data_structure/sparse_table.hpp"
+#include "../main.hpp"
 
 struct Graph {
-  vec<PII> euler_tour;
-  vec<int> dfn;
-  ST<PII, Min<PII>> st;
+  vector<pair<int, int>> euler_tour;
+  vector<int> dfn;
+  ST<pair<int, int>, Min<pair<int, int>>> st;
 
   int n, rt;
-  vec<vec<int>> G;
+  vector<vector<int>> G;
 
   Graph(int _, int _rt = 0) : n(_), rt(_rt), G(_) {
     for (int i = 0; i < n; i++) {
-      int m, x; cin >> m;
+      int m, x;
+      cin >> m;
       while (m--) {
         cin >> x;
         G[i].emplace_back(x);
@@ -19,7 +20,7 @@ struct Graph {
     }
     dfn.assign(n, 0);
     auto dfs = [&](auto &&self, int u, int fa) -> void {
-      dfn[u] = sz(euler_tour);
+      dfn[u] = euler_tour.size();
       euler_tour.emplace_back(dfn[u], u);
       for (const int &v : G[u]) {
         if (v == fa) continue;
@@ -28,12 +29,12 @@ struct Graph {
       }
     };
     dfs(dfs, rt, -1);
-    st = ST<PII, Min<PII>>(euler_tour);
+    st = ST<pair<int, int>, Min<pair<int, int>>>(euler_tour);
   }
 
   int lca(int u, int v) {
     int l = dfn[u], r = dfn[v];
     if (l > r) swap(l, r);
-    return st.query(l, r + 1).se;
+    return st.query(l, r + 1).second;
   }
 };

@@ -1,16 +1,20 @@
 #include "../main.hpp"
 
-vec<int> KMP(const str &s, const str &pat) {
-  str t = pat + '\0' + s;
-  vec<int> p(t.size(), 0);
-  for (size_t i = 1; i < t.size(); i++) {
+vector<int> KMP(const string &s, const string &pat) {
+  string t = pat + '\0' + s;
+#define sz(x) static_cast<int>((x).size())
+  vector<int> p(sz(t), 0);
+  for (int i = 1; i < sz(t); i++) {
     int g = p[i - 1];
     while (g && t[i] != t[g]) g = p[g - 1];
     p[i] = g + (t[i] == t[g]);
   }
-  vec<int> match;
-  for (size_t i = t.size() - pat.size(); i < t.size(); i++) {
-    if (p[i] == pat.size()) match.push_back(i - 2 * pat.size());
+  vector<int> match;
+  for (int i = sz(t) - sz(pat); i < sz(t); i++) {
+    if (p[i] == sz(pat)) {
+      match.push_back(i - 2 * sz(pat));
+    }
   }
+#undef sz
   return match;
 }

@@ -6,8 +6,8 @@ struct edge {
   edge(int to, int _ = inf) : to(to), weight(_) {}
 };
 int n, m;
-vec<vec<edge>> G;
-vec<int> dis;
+vector<vector<edge>> G;
+vector<int> dis;
 
 bool bellman_ford(int s) {
   dis.assign(n, inf), dis[s] = 0;

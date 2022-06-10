@@ -13,8 +13,7 @@ ll Tonelli_Shanks(ll a, ll p) {
   a = (a % p + p) % p;
   if (a == 0) return 0LL;
 
-  if (qpow(a, (p - 1) / 2, p) != 1LL) return -1LL;
-  // No Solution 
+  if (qpow(a, (p - 1) / 2, p) != 1LL) return -1LL;  // No Solution
 
   if (p % 4 == 3) return qpow(a, (p + 1) / 4, p);
 
@@ -27,7 +26,7 @@ ll Tonelli_Shanks(ll a, ll p) {
   ll g = qpow(N, h, p);
   ll b = qpow(a, h, p);
 
-  for (ll m = 0; ; k = m) {
+  for (ll m = 0;; k = m) {
     ll t = b;
     for (m = 0; m < k && t != 1LL; m++) {
       t = t * t % p;

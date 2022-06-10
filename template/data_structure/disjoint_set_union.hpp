@@ -1,16 +1,20 @@
 #include "../main.hpp"
 
 struct DSU {
-  vec<int> p;
-  
-  DSU() {}
-  DSU(int _) : p(_ + 1) { iota(all(p), 0); }
+  vector<int> p;
 
-  int f(int _) { return _ == p[_] ? _ : p[_] = f(p[_]); }
-  bool same(int u, int v) { return f(u) == f(v); }
-  bool unite(int u, int v) {
-    u = f(u), v = f(v);
+  DSU() = default;
+  DSU(int n) : p(n, -1) {}
+  ~DSU() = default;
+
+  int find(int x) { return p[x] < 0 ? x : p[x] = find(p[x]); }
+  int size(int x) { return -p[find(x)]; }
+  bool same(int u, int v) { return find(u) == find(v); }
+  bool merge(int u, int v) {
+    u = find(u), v = find(v);
     if (u == v) return false;
-    return p[u] = v, true;
+
+    p[u] += p[v], p[v] = u;
+    return true;
   }
 };

@@ -13,19 +13,11 @@
 
 + 注意起始下标（作者码风奇差，`0-indexed`和`1-indexed`混用严重）
 + **变量名习惯**的差异（比较细的细节，建议仔细甄别）
-+ 是否定义了与本代码模板**相同的宏**，但是实现不同。
-  尽可能只使用如下的宏：
++ ~~是否定义了与本代码模板**相同的宏**，但是实现不同。~~
+  现在只使用：
   ```cpp
-  #define PII pair<int, int>
-  #define vec vector
-  #define str string
-  #define fi first
-  #define se second
-  #define all(a) a.begin(), a.end()
-  #define SZ(x) static_cast<int>((x).size())
-
-  using db = double;
   using ll = long long;
+  #define all(a) a.begin(), a.end()
   ```
   编译参数如下：
   ```cmd
