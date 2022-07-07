@@ -32,4 +32,4 @@ $\lfloor \frac{x+y}{k} \rfloor$ 中会影响答案的其实只有：$x \% k, y \
 
 ## G. Count the Trains
 
-珂朵莉树裸题。。。这也能放G？
+珂朵莉树裸题？

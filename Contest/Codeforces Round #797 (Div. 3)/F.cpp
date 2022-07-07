@@ -38,21 +38,35 @@ void SingleTest(__attribute__((unused)) int TestCase) {
       t += s[cur], cur = p[cur];
     } while (cur != i);
 
-    const auto KMP = [](const str &s, const str &pat) {
-      str t = pat + '\0' + s;
-      vec<int> p(t.size(), 0);
-      for (size_t i = 1; i < t.size(); i++) {
+    // const auto KMP = [](const str &s, const str &pat) {
+    //   str t = pat + '\0' + s;
+    //   vec<int> p(t.size(), 0);
+    //   for (size_t i = 1; i < t.size(); i++) {
+    //     int g = p[i - 1];
+    //     while (g && t[i] != t[g]) g = p[g - 1];
+    //     p[i] = g + (t[i] == t[g]);
+    //   }
+    //   for (size_t i = t.size() - s.size(); i < t.size(); i++) {
+    //     if (p[i] == (int) pat.size()) return int(i - 2 * pat.size());
+    //   }
+    //   return -1;
+    // };
+
+    const auto KMP = [](const str &s) {
+      int n = s.length();
+      vec<int> p(n, 0);
+      for (int i = 1; i < n; i++) {
         int g = p[i - 1];
-        while (g && t[i] != t[g]) g = p[g - 1];
-        p[i] = g + (t[i] == t[g]);
+        while (g && s[i] != s[g]) g = p[g - 1];
+        p[i] = g + (s[i] == s[g]);
       }
-      for (size_t i = t.size() - s.size(); i < t.size(); i++) {
-        if (p[i] == (int) pat.size()) return int(i - 2 * pat.size());
-      }
-      return -1;
+      if (n % (n - p.back()) == 0) return n - p.back();
+      return n;
     };
 
-    ll num = KMP(t.substr(1) + t, t) + 1;
+    // ll num = KMP(t.substr(1) + t) + 1;
+    
+    ll num = KMP(t);
 
     debug(t, num);
 
