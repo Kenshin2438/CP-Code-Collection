@@ -12,8 +12,6 @@ using ll = long long;
 
 const int mod = 1e9 + 7;
 
-ll fac[100005];
-
 void solve() {
   int n; cin >> n;
   vector<int> p(n);
@@ -40,12 +38,6 @@ void solve() {
 
 int main() {
   cin.tie(nullptr)->sync_with_stdio(false);
-
-  fac[0] = 1;
-  for (int i = 1; i <= 1e5; i++) {
-    fac[i] = fac[i - 1] * i % mod;
-  }
-
   int T; cin >> T;
   while (T--) solve();
   return 0;
