@@ -2,10 +2,10 @@
 
 // O(n log(n))
 struct SuffixArray_doubling {
-  vec<int> sa, lcp;
-  SuffixArray_doubling(const str &s, int lim = 256) {
+  vector<int> sa, lcp;
+  SuffixArray_doubling(const string &s, int lim = 256) {
     int n = (int) s.length() + 1; // 注意为 s.length() + 1
-    vec<int> x(all(s) + 1), y(n), ws(max(n, lim));
+    vector<int> x(all(s) + 1), y(n), ws(max(n, lim));
     sa.resize(n), iota(all(sa), 0);
     for (int d = 0, p = 0; p < n; d = max(1, d << 1), lim = p) {
       p = d, iota(all(y), n - d);
@@ -20,7 +20,7 @@ struct SuffixArray_doubling {
         x[b] = (y[a] == y[b] && y[a + d] == y[b + d]) ? p - 1 : p++;
       }
     }
-    vec<int> rk(n); // sa[0] = s.length()
+    vector<int> rk(n); // sa[0] = s.length()
     for (int i = 1; i < n; i++) rk[sa[i]] = i;
     lcp.resize(n); // longest common prefixes
     // lcp[i] = LCP(sa[i], sa[i - 1])

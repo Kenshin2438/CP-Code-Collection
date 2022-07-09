@@ -34,7 +34,6 @@ struct LazySegTree {
     val.resize(n << 1, ti), laz.resize(n, ei);
     for (int i = 0; i < (int)v.size(); i++) val[i + n] = v[i];
     for (int i = n - 1; i > 0; i--) _update(i);
-#undef sz
   }
   ~LazySegTree() = default;
 
@@ -108,7 +107,9 @@ struct Tree : LazySegTree<T, E, Init_T<T>, Init_E<E>, Merge_T<T>, Modify<T, E>,
   using base = LazySegTree<T, E, Init_T<T>, Init_E<E>, Merge_T<T>, Modify<T, E>,
                            Merge_E<E>>;
 
+  Tree() = default;
   Tree(const vector<T> &v) : base(v) {}
+  ~Tree() = default;
 };
 }  // namespace SegTreeUtil
 using SegTreeUtil::Tree;
