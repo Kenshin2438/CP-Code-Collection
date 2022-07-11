@@ -1,25 +1,25 @@
 #include "../main.hpp"
 
 struct SuffixArray {
-  vec<int> SA, LCP;
+  vector<int> SA, LCP;
 
   SuffixArray() {}
-  SuffixArray(const str &s, char first = 'a', char last = 'z') {
+  SuffixArray(const string &s, char first = 'a', char last = 'z') {
     get_sa(s, first, last), get_lcp(s);
   }
-
+  #define sz(x) int((x).size())
   // O(n)
-  vec<int> SA_IS(const vec<int> &v, int K) {
+  vector<int> SA_IS(const vector<int> &v, int K) {
     const int n = sz(v);
-    vec<int> SA(n), lms;
-    vec<bool> sl(n, false);
+    vector<int> SA(n), lms;
+    vector<bool> sl(n, false);
     for (int i = n - 2; i >= 0; i--) {
       sl[i] = (v[i] == v[i + 1] ? sl[i + 1] : v[i] > v[i + 1]);
       if (sl[i] && !sl[i + 1]) lms.push_back(i + 1);
     }
     reverse(all(lms));
-    auto induced_sort = [&](const vec<int> &LMS) {
-      vec<int> l(K, 0), r(K, 0);
+    auto induced_sort = [&](const vector<int> &LMS) {
+      vector<int> l(K, 0), r(K, 0);
       for (const int &x : v) {
         if (x + 1 < K) l[x + 1]++;
         ++r[x];
@@ -39,7 +39,7 @@ struct SuffixArray {
       });
     };
     induced_sort(lms);
-    vec<int> new_lms(sz(lms)), new_v(sz(lms));
+    vector<int> new_lms(sz(lms)), new_v(sz(lms));
     for (int i = 0, k = 0; i < n; i++) {
       if (!sl[SA[i]] && SA[i] >= 1 && sl[SA[i] - 1]) {
         new_lms[k++] = SA[i];
@@ -67,8 +67,8 @@ struct SuffixArray {
     return induced_sort(new_lms), SA;
   }
 
-  void get_sa(const str &s, char first = 'a', char last = 'z') {
-    vec<int> v(s.size() + 1);
+  void get_sa(const string &s, char first = 'a', char last = 'z') {
+    vector<int> v(s.size() + 1);
     copy(all(s), begin(v));
     for (auto &&x : v) x -= first - 1;
     v.back() = 0;
@@ -76,9 +76,9 @@ struct SuffixArray {
     this->SA.erase(begin(this->SA));
   }
 
-  void get_lcp(const str &s) {
+  void get_lcp(const string &s) {
     int n = sz(s);
-    vec<int> rank(n), lcp(n);
+    vector<int> rank(n), lcp(n);
     for (int i = 0; i < n; i++) rank[SA[i]] = i;
     for (int i = 0, p = 0; i < n; i++, p ? p--: 0) {
       if (rank[i] == 0) { p = 0; continue; }

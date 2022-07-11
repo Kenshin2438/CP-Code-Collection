@@ -4,7 +4,7 @@
 struct SuffixArray_doubling {
   vector<int> sa, lcp;
   SuffixArray_doubling(const string &s, int lim = 256) {
-    int n = (int) s.length() + 1; // 注意为 s.length() + 1
+    int n = (int) s.length() + 1;
     vector<int> x(all(s) + 1), y(n), ws(max(n, lim));
     sa.resize(n), iota(all(sa), 0);
     for (int d = 0, p = 0; p < n; d = max(1, d << 1), lim = p) {
