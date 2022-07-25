@@ -135,9 +135,9 @@ int main() {
 
   int n, d; cin >> n >> d;
   for (int i = 0; i < n; i++) {
-    int x; cin >> x; 
-    
-    if (a[x] == 0) { 
+    int x; cin >> x;
+
+    if (a[x] == 0) {
       SEG.update(max(1, x - d), x, 1);
       ll cnt = SEG.query(x + 1, min(N, x + d + 1))[0];
       SEG.set(x, {1, cnt, cnt * cnt});
