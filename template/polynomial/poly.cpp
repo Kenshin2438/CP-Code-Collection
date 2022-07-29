@@ -1,15 +1,3 @@
-#include <bits/stdc++.h>
-using namespace std;
-
-#ifdef LOCAL
-#include "debug.hpp"
-#else
-#define debug(...) 42
-#endif
-
-using ll = long long;
-#define all(a) begin(a), end(a)
-
 template <int mod>
 struct m32 {
   int v = 0;
@@ -23,7 +11,7 @@ struct m32 {
   m32() = default;
   template <typename T> m32(T _ = 0) { v = norm(_); }
   ~m32() = default;
-  
+
   m32 operator-() const { return v ? m32(mod - v) : m32(0); }
   m32 &operator=(const int &m) { return v = norm(m), *this; }
   m32 &operator+=(const m32 &m) {
@@ -145,8 +133,8 @@ Poly &Poly::NTT(int n) {
     resize(n);
     ::NTT(begin(), n);
     is_NTT = true;
-  } 
-  return *this;  
+  }
+  return *this;
 }
 Poly &Poly::INTT(int n) {
   ::INTT(begin(), n);
@@ -161,12 +149,6 @@ Poly &mul(Poly &f, Poly &g, int t) {
 
 Poly operator*(Poly f, Poly g) {
   if (f.deg() < g.deg()) swap(f, g);
-  int t = f.deg() + g.deg() + 1;
+  int t = f.deg() + g.deg() - 1;
   return mul(f, g, get_lim(t)).cut(t);
-}
-
-int main() {
-  cin.tie(nullptr)->sync_with_stdio(false);
-  
-  return 0;
 }
