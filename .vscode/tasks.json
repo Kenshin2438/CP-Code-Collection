@@ -1,0 +1,32 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "cppbuild",
+            "label": "CppBuild",
+            "command": "g++",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g3",
+                "${file}",
+                "-o",
+                "${fileDirname}\\${fileBasenameNoExtension}.exe",
+                "-Ofast",
+                "-std=c++17",
+                "-DLOCAL",
+                "-ID:\\Document\\repos\\Code-of-ACM\\template\\debug"
+            ],
+            "options": {
+                "cwd": "D:/Software/scoop/apps/gcc/current/bin"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "调试器生成的任务。"
+        }
+    ]
+}
