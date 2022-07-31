@@ -28,7 +28,7 @@ struct SegTree {
     T L = ut(), R = ut();
     for (l += n, r += n; l < r; l >>= 1, r >>= 1) {
       if (l & 1) L = f(L, val[l++]);
-      if (r & 1) R = f(R, val[--r]);
+      if (r & 1) R = f(val[--r], R);
     }
     return f(L, R);
   }

@@ -74,7 +74,7 @@ struct LazySegTree {
     T L = ut(), R = ut();
     for (int a = l, b = r; a < b; a >>= 1, b >>= 1) {
       if (a & 1) L = f(L, val[a++]);
-      if (b & 1) R = f(R, val[--b]);
+      if (b & 1) R = f(val[--b], R);
     }
     return f(L, R);
   }
