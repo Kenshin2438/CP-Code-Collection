@@ -13,7 +13,7 @@ vector<int> KMP(const string &s, const string &pat) {
     lps[i] = g + (t[i] == t[g]);
   }
   vector<int> match;
-  for (int i = sz(t) - sz(pat); i < sz(t); i++) {
+  for (int i = sz(t) - sz(s); i < sz(t); i++) {
     if (lps[i] == sz(pat)) {
       match.push_back(i - 2 * sz(pat));
     }
