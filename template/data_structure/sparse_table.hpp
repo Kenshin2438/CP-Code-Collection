@@ -1,11 +1,8 @@
-#include "../main.hpp"
-
 #define sz(x) static_cast<int>((x).size())
 
-template <typename T>
-struct ST {
+template <typename T> struct ST {
   vector<vector<T>> st;
-  T f(const T &a, const T &b) { 
+  T f(const T &a, const T &b) {
     return min<T>(a, b);
   }
 

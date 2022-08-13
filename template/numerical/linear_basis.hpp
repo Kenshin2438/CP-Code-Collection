@@ -29,8 +29,7 @@ struct Basis {
 // http://acm.hdu.edu.cn/showproblem.php?pid=3949
 // https://hydro.ac/d/bzoj/p/2844
 
-template<typename T>
-struct Basis {
+template<typename T> struct Basis {
   vector<T> B;
   int sz = 0;
   bool free = false;
