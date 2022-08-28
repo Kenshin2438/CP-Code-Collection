@@ -29,15 +29,15 @@ void init() {
   }
 }
 
-ll euler_qpow(ll x, ll n, ll mod) {
+inline ll euler_qpow(ll x, ll n, ll mod) {
   ll res = 1, tag = 0;
   if (x >= mod) x %= mod, tag = 1;
   for (; n > 0LL; n >>= 1) {
     if (n & 1LL) {
       if ((res *= x) > mod) res %= mod, tag = 1;
-    } 
+    }
     if ((x *= x) > mod) x %= mod, tag = 1;
-  } 
+  }
   return res + mod * tag;
 }
 
@@ -56,7 +56,7 @@ void solve() {
 
 int main() {
   cin.tie(nullptr)->sync_with_stdio(false);
-  
+
   init();
   int T; cin >> T;
   while (T--) solve();

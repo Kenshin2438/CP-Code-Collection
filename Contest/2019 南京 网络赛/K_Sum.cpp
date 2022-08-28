@@ -12,7 +12,7 @@ using ll = long long;
 
 const int mod = 1e9 + 7;
 const int iv6 = 166666668;
-const int N = 1e6 + 10;
+const int N = 1e7 + 10;
 
 ll F[N];
 unordered_map<ll, ll> S;
@@ -60,7 +60,7 @@ ll qpow(ll x, ll n, ll mod) {
 }
 ll inv(ll n) { return qpow(n, mod - 2, mod); }
 
-ll sum2(ll n) {
+ll sum3(ll n) {
   n %= mod;
   return n * (n + 1) % mod * (2 * n + 1) % mod * iv6 % mod;
 }
@@ -68,7 +68,7 @@ ll sum2(ll n) {
 ll sieve(ll n) {
   if (n < N) return F[n];
   if (S.count(n)) return S[n];
-  ll res = sum2(n);
+  ll res = sum3(n);
   for (ll l = 2, r; l <= n; l = r + 1) {
     r = n / (n / l);
     res = (res - (r - l + 1) % mod * sieve(n / l) % mod + mod) % mod;
@@ -89,16 +89,16 @@ void solve() {
     if (bn == 1) {
       bn = sk;
     } else {
-      bn = bn * (qpow(bn, pw, mod) + mod - bn) % mod * inv(bn - 1) % mod; 
+      bn = bn * (qpow(bn, pw, mod) + mod - bn) % mod * inv(bn - 1) % mod;
     }
-    ans = (ans + (sieve(r) - sieve(l - 1) + mod) % mod * bn % mod);
+    ans = (ans + (sieve(r) - sieve(l - 1) + mod) % mod * bn % mod) % mod;
   }
   cout << ans << '\n';
 }
 
 int main() {
   cin.tie(nullptr)->sync_with_stdio(false);
-  
+
   assert(iv6 == qpow(6, mod - 2, mod));
 
   init();
