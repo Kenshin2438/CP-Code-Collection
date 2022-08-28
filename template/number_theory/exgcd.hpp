@@ -1,7 +1,6 @@
 #include "../main.hpp"
 
-template <typename T>
-pair<T, T> exgcd(T a, T b) {
+template <typename T> pair<T, T> exgcd(T a, T b) {
   bool nega = (a < 0), negb = (b < 0);
   T x = 1, y = 0, r = 0, s = 1;
   while (b) {

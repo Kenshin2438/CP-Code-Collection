@@ -1,5 +1,3 @@
-#include "../main.hpp"
-
 template <typename T, typename E, T (*ut)(), E (*ue)(), T (*f)(T, T),
           T (*g)(T, E), E (*h)(E, E)>
 struct LazySegTree {

@@ -28,6 +28,9 @@ struct Basis {
 // 异或线性基
 // http://acm.hdu.edu.cn/showproblem.php?pid=3949
 // https://hydro.ac/d/bzoj/p/2844
+// https://loj.ac/p/114
+// https://www.luogu.com.cn/problem/P3857
+// https://www.luogu.com.cn/problem/P4570
 
 template<typename T> struct Basis {
   vector<T> B;
@@ -76,4 +79,48 @@ template<typename T> struct Basis {
     return res;
   }
   int size() { return sz; }
+};
+
+// bitset<> 异或线性基
+// https://codeforces.com/gym/102920/problem/J
+// https://loj.ac/p/6243 (light chasing)
+
+template <size_t N> struct Basis {
+  vector<bitset<N>> B, path;
+  int sz = 0;
+
+  Basis(int n) : B(n), path(n) {};
+
+  void insert(bitset<N> v, int id) {
+    bitset<N> cur; cur.set(id);
+    for (int i = B.size() - 1; i >= 0; i--) {
+      if (v.test(i) == false) continue;
+      if (B[i].test(i)) {
+        v ^= B[i], cur ^= path[i];
+      } else {
+        for (int j = i - 1; j >= 0; j--)
+          if (v.test(j)) v ^= B[j], cur ^= path[j];
+        for (int j = i + 1; j < (int) B.size(); j++)
+          if (B[j].test(i)) B[j] ^= v, path[j] ^= cur;
+        B[i] = v, path[i] = cur, sz += 1;
+        return;
+      }
+    }
+  }
+  int size() { return sz; }
+  pair<bool, bitset<N>> solver(bitset<N> x) {
+    // find path
+    bitset<N> res;
+    for (int i = B.size() - 1; i >= 0; i--) {
+      if (x.test(i)) {
+        if (B[i].test(i)) {
+          x ^= B[i];
+          res ^= path[i];
+        } else {
+          return {false, res};
+        }
+      }
+    }
+    return {true, res};
+  }
 };

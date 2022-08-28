@@ -1,9 +1,8 @@
 struct FenwickTree {
-#define SZ(a) static_cast<int>((a).size())
   vector<ll> s;
   FenwickTree(int n) : s(n) {}
   void update(int pos, ll dif) {
-    for (; pos < SZ(s); pos |= pos + 1) s[pos] += dif;
+    for (; pos < sz(s); pos |= pos + 1) s[pos] += dif;
   }
   ll query(int pos) {
     ll res = 0;
