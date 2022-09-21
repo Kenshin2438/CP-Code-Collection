@@ -1,0 +1,41 @@
+\section{Debug}
+\setlength{\parskip}{0.5em}
+
+\subsection{一些心得}
+当榜上过了很多人，但是你却没思路时，试试下面这些？
+\begin{itemize}
+  \setlength{\itemsep}{0.5ex}
+  \item 想一想{\textbf{数据范围是否有特殊意义}}。
+  \item 如果是一些数学题，考虑{\textbf{打表找规律，总比死磕要好}}。
+  \item 什么？是博弈？哦，两个聪明人的事，咱们不掺和。想不出就别死撑着了，{\textbf{SG函数}和\textbf{Minimax搜索}}开冲！
+  \item 多翻一下带来的板子，也许是自己不会的{\textbf{人均算法}}呢？
+  \item 如果你的算法复杂度比较正确（且自己已经不能再优化了），考虑玄学（Miller-Rabin / Rho 随机化等等）；或者想想暴力优化？{\textbf{能过这么多，总归是的有道理}}。
+  \item 选择放弃。{\textbf{就你不会写那很可能就是你太菜了，换一个题自闭去}}。
+  \item 对着队友语言输出！然后把题交给队友。
+\end{itemize}
+
+\subsection{Random Number}
+\cppinput{../template/debug/random_number.hpp}
+
+\subsection{CMD对拍bat脚本}
+\begin{cpplist}
+@echo off
+
+:loop
+  gen.exe > _.in
+  ac.exe < _.in > _.out
+  bf.exe < _.in > _.ans
+  fc _.out _.ans
+if not errorlevel 1 goto loop
+pause
+goto loop
+\end{cpplist}
+
+\section{Int128}
+\cppinput{../template/misc/int128.hpp}
+
+\section{ModInt}
+\cppinput{../template/misc/mint.hpp}
+
+\section{Tree Hash}
+\cppinput{../template/misc/tree_hash.hpp}

@@ -1,5 +1,3 @@
-#include "../main.hpp"
-
 class LowLink {
  private:
   vector<int> articulation_points;

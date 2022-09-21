@@ -1,5 +1,3 @@
-#include "../main.hpp"
-
 using i128 = __int128;
 
 istream &operator>>(istream &is, i128 &v) {

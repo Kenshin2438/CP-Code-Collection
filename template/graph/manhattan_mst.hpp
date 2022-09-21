@@ -1,5 +1,4 @@
 #include "../data_structure/disjoint_set_union.hpp"
-#include "../main.hpp"
 
 tuple<ll, vector<pair<int, int>>> ManMST(vector<int> xs, vector<int> ys) {
   vector<int> id(xs.size());

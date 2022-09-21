@@ -1,6 +1,3 @@
-#include "../main.hpp"
-
-// O(n log(n))
 struct SuffixArray_doubling {
   vector<int> sa, lcp;
   SuffixArray_doubling(const string &s, int lim = 256) {
@@ -29,6 +26,6 @@ struct SuffixArray_doubling {
       while (s[i + p] == s[d + p]) p++;
       lcp[rk[i]] = p;
     }
-    sa.erase(begin(sa)), lcp.erase(begin(lcp));
+    sa.erase(begin(sa)), lcp.erase(begin(lcp)), lcp[0] = s.length();
   }
 };

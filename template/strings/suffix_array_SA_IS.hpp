@@ -1,14 +1,10 @@
-#include "../main.hpp"
-
 struct SuffixArray {
   vector<int> SA, LCP;
 
-  SuffixArray() {}
   SuffixArray(const string &s, char first = 'a', char last = 'z') {
     get_sa(s, first, last), get_lcp(s);
   }
-  #define sz(x) int((x).size())
-  // O(n)
+
   vector<int> SA_IS(const vector<int> &v, int K) {
     const int n = sz(v);
     vector<int> SA(n), lms;
@@ -18,7 +14,7 @@ struct SuffixArray {
       if (sl[i] && !sl[i + 1]) lms.push_back(i + 1);
     }
     reverse(all(lms));
-    auto induced_sort = [&](const vector<int> &LMS) {
+    const auto induced_sort = [&](const vector<int> &LMS) {
       vector<int> l(K, 0), r(K, 0);
       for (const int &x : v) {
         if (x + 1 < K) l[x + 1]++;
@@ -68,7 +64,7 @@ struct SuffixArray {
   }
 
   void get_sa(const string &s, char first = 'a', char last = 'z') {
-    vector<int> v(s.size() + 1);
+    vector<int> v(sz(s) + 1);
     copy(all(s), begin(v));
     for (auto &&x : v) x -= first - 1;
     v.back() = 0;

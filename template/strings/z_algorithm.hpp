@@ -1,7 +1,4 @@
 // z[i] = LCP(s, s.substr(i))
-// https://codeforces.com/problemset/problem/126/B
-// https://codeforces.com/problemset/problem/432/D
-
 vector<int> Z_algorithm(const string &s) {
   int n = (int) s.length();
   vector<int> z(n); z[0] = n;

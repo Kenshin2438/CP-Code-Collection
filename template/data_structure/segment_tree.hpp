@@ -1,5 +1,3 @@
-#include "../main.hpp"
-
 template <typename T, T (*ut)(), T (*f)(T, T)>
 struct SegTree {
  private:

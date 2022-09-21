@@ -1,5 +1,3 @@
-#include "../main.hpp"
-
 // 前缀函数 lps[i] -> 前缀串s[0..i]的最长匹配的真前后缀
 // lps[i] = max{k : s[0..k-1]==s[i-k+1..i]}
 
@@ -22,9 +20,6 @@ vector<int> KMP(const string &s, const string &pat) {
 
 // 根据前缀函数建自动机
 // aut[l][c] -> 前缀l后面添加字符c后 的前缀函数
-
-// https://codeforces.com/contest/1721/problem/E
-// https://www.hackerrank.com/contests/w22/challenges/sequential-prefix-function
 
 void LPS_automaton(const string &s) {
   vector<int> lps(sz(s), 0);

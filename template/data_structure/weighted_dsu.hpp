@@ -1,10 +1,8 @@
-#include "../main.hpp"
-
 struct Weighted_DSU {
   vector<int> p, val;
 
   Weighted_DSU() = default;
-  Weighted_DSU(int n, int init = 0) : p(n), val(n, init) { iota(all(p), 0); }
+  Weighted_DSU(int n) : p(n), val(n) { iota(all(p), 0); }
   ~Weighted_DSU() = default;
 
   int find(int x) {

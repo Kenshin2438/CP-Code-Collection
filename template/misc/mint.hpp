@@ -51,10 +51,18 @@ template <uint32_t mod> struct m32 {
     assert(v != 0);
     return pow(mod - 2);
   }
-  friend ostream &operator<<(ostream &os, const m32<mod> &m) {
+
+  static u32 get_mod() { return mod; }
+  friend ostream &operator<<(ostream &os, const m32 &m) {
     return os << m.v;
+  }
+  friend istream &operator>>(istream &is, m32 &m) {
+    long long a;
+    is >> a;
+    m = m32<mod>(a);
+    return is;
   }
 };
 
-const int mod = 1e9 + 7;
+const int mod = 998244353;
 using mint = m32<mod>;

@@ -1,5 +1,3 @@
-#define sz(x) int((x).size())
-
 using C = complex<double>;
 void FFT(vector<C> &a) {
   int n = sz(a), L = 31 - __builtin_clz(n);

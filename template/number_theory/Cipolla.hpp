@@ -1,18 +1,3 @@
-#include "../main.hpp"
-
-mt19937 rng(__builtin_ia32_rdtsc());
-inline ll randint(ll l, ll r) {
-  return uniform_int_distribution<ll>(l, r)(rng);
-}
-
-ll qpow(ll x, ll n, ll mod) {
-  ll res = 1LL;
-  for (x %= mod; n > 0LL; n >>= 1, x = x * x % mod) {
-    if (n & 1LL) res = res * x % mod;
-  }
-  return (res + mod) % mod;
-}
-
 struct R {
   ll a, p, x, y;
 
@@ -40,9 +25,8 @@ struct R {
 ll Cipolla(ll a, ll p) {
   a = (a % p + p) % p;
   if (a == 0) return 0LL;
-
-  if (qpow(a, (p - 1) / 2, p) != 1LL) return -1LL;  // No Solution
-
+  // No Solution
+  if (qpow(a, (p - 1) / 2, p) != 1LL) return -1LL;  
   if (p % 4 == 3) return qpow(a, (p + 1) / 4, p);
 
   R t(a, p);

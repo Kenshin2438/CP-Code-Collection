@@ -1,13 +1,3 @@
-#include "../main.hpp"
-
-ll qpow(ll x, ll n, ll mod) {
-  ll res = 1LL;
-  for (x %= mod; n > 0LL; n >>= 1, x = x * x % mod) {
-    if (n & 1LL) res = res * x % mod;
-  }
-  return (res + mod) % mod;
-}
-
 // a^x EQUIV n (MOD mod), and gcd(a, mod) = 1
 ll BSGS(ll a, ll n, ll mod) {
   a %= mod, n %= mod;
@@ -28,17 +18,7 @@ ll BSGS(ll a, ll n, ll mod) {
   return -1;  // No solution
 }
 
-pair<ll, ll> exgcd(ll a, ll b) {
-  bool neg_a = (a < 0), neg_b = (b < 0);
-  ll x = 1, y = 0, r = 0, s = 1;
-  while (b != 0LL) {
-    ll t = a / b;
-    r ^= x ^= r ^= x -= t * r;
-    s ^= y ^= s ^= y -= t * s;
-    b ^= a ^= b ^= a %= b;
-  }
-  return {neg_a ? -x : x, neg_b ? -y : y};
-}
+#include "../number_theory/exgcd.hpp"
 
 ll inv(ll a, ll mod) {
   auto [res, _] = exgcd(a, mod);

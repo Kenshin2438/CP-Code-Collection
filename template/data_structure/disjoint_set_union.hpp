@@ -1,5 +1,3 @@
-#include "../main.hpp"
-
 struct DSU {
   vector<int> p;
 

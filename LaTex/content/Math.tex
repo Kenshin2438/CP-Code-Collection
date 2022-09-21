@@ -1,0 +1,23 @@
+\section{Minimax搜索 alpha-beta剪枝}
+\cppinput{../template/math/minimax.hpp}
+
+\section{Combination}
+\cppinput{../template/math/combination.hpp}
+
+\section{String Number Query}
+\cppinput{../template/math/stirling_number_module_small_p.hpp}
+
+\section{一些数学结论}
+\subsection{错排计数}
+$$D[n] = (n-1)\times(D[n-1]+D[n-2]), D[0] = 1, D[1] = 0$$
+
+对于第n个要加入错排的数，
+\begin{enumerate}
+  \item 它可以和已经错排的n-1个数的其中一个进行交换，构成错排，于是有 $(n-1)\times D[n-1]$。
+  \item 还可以与n-1个数中唯一一个没有加入错排的数（n-2个构成错排，剩下一个待定）进行交换，这样就构成了n错排，而这n-1个数之中，每个数都可以作为那个唯一一个没有加入错排的数，故$(n-1)\times D[n-2]$。
+\end{enumerate}
+
+\subsection{Pick定理}
+$$S=a+\frac{b}{2}-1$$
+
+其中$a$表示多边形内部的点数，$b$表示多边形边界上的点数，$S$表示多边形的面积。

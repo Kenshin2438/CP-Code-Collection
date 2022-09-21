@@ -1,5 +1,3 @@
-#include "../main.hpp"
-
 // tr.insert(val);     //插入元素
 // tr.erase(iterator); //删除元素
 // tr.order_of_key();  //求k在树中是第几大

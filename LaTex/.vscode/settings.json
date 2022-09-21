@@ -1,0 +1,119 @@
+{
+  "latex-workshop.latex.tools": [
+    {
+      "name": "latexmk",
+      "command": "latexmk",
+      "args": [
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "-file-line-error",
+        "-pdf",
+        "%DOCFILE%"
+      ]
+    },
+    {
+      "name": "xelatex",
+      "command": "xelatex",
+      "args": [
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "-file-line-error",
+        "%DOCFILE%"
+      ]
+    },
+    {
+      "name": "pdflatex",
+      "command": "pdflatex",
+      "args": [
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "-file-line-error",
+        "%DOCFILE%"
+      ]
+    },
+    {
+      "name": "bibtex",
+      "command": "bibtex",
+      "args": [
+        "%DOCFILE%"
+      ]
+    }
+  ],
+  "latex-workshop.latex.recipes": [
+    {
+      "name": "xelatex",
+      "tools": [
+        "xelatex"
+      ]
+    },
+    {
+      "name": "latexmk",
+      "tools": [
+        "latexmk"
+      ]
+    },
+    {
+      "name": "pdflatex -> bibtex -> pdflatex*2",
+      "tools": [
+        "pdflatex",
+        "bibtex",
+        "pdflatex",
+        "pdflatex"
+      ]
+    }
+  ],
+  // 以下配置参考 https://zhuanlan.zhihu.com/p/166523064
+  // 文件保存的时候 取消自动编译
+  "latex-workshop.latex.autoBuild.run": "never",
+  //右键菜单
+  "latex-workshop.showContextMenu": true,
+  //从使用的包中自动补全命令和环境
+  "latex-workshop.intellisense.package.enabled": true,
+  // 文件清理
+  "latex-workshop.latex.clean.fileTypes": [
+    "*.aux",
+    "*.bbl",
+    "*.blg",
+    "*.idx",
+    "*.ind",
+    "*.lof",
+    "*.lot",
+    "*.out",
+    "*.toc",
+    "*.acn",
+    "*.acr",
+    "*.alg",
+    "*.glg",
+    "*.glo",
+    "*.gls",
+    "*.ist",
+    "*.fls",
+    "*.log",
+    "*.fdb_latexmk"
+  ],
+  // 构建失败后，自动清除辅助文件
+  "latex-workshop.latex.autoClean.run": "onFailed",
+  // 使用上次的recipe编译组合
+  "latex-workshop.latex.recipe.default": "lastUsed",
+  // PDF查看器用于在\ref上的[View on PDF]链接
+  "latex-workshop.view.pdf.ref.viewer": "auto",
+  // 配置SumatraPDF 作为外部的PDF阅读器
+  "latex-workshop.view.pdf.viewer": "external",
+  "latex-workshop.view.pdf.external.viewer.command": "SumatraPDF",
+  "latex-workshop.view.pdf.external.viewer.args": [
+    "%PDF%"
+  ],
+  // // 将synctex转发到外部查看器
+  // "latex-workshop.view.pdf.external.synctex.command": "SumatraPDF",
+  // "latex-workshop.view.pdf.external.synctex.args": [
+  //   "-forward-search",
+  //   "%TEX%",
+  //   "%LINE%",
+  //   "-reuse-instance",
+  //   "-inverse-search",
+  //   "Code \"D:/Software/scoop/apps/vscode/current/resources/app/out/cli.js\" -gr \"%f\":\"%l\"",
+  //   "%PDF%",
+  // ],
+  // // 用于反向同步的内部查看器的键绑定。ctrl/cmd +点击(默认)或双击
+  // "latex-workshop.view.pdf.internal.synctex.keybinding": "double-click",
+}
