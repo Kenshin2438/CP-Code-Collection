@@ -56,5 +56,3 @@ Poly convMod(const Poly &a, const Poly &b) {
   }
   return res;
 }
-
-const int mod = 1e9 + 7;

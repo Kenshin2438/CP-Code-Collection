@@ -31,9 +31,7 @@ template <uint32_t mod> struct m32 {
     v = (u64)v * rhs.v % mod;
     return *this;
   }
-  m32 &operator/=(const m32 &rhs) {
-    return *this *= rhs.inv();
-  }
+  m32 &operator/=(const m32 &rhs) { return *this *= rhs.inv(); }
   m32 operator+(const m32 &rhs) const { return m32(*this) += rhs; }
   m32 operator-(const m32 &rhs) const { return m32(*this) -= rhs; }
   m32 operator*(const m32 &rhs) const { return m32(*this) *= rhs; }
@@ -42,9 +40,8 @@ template <uint32_t mod> struct m32 {
   bool operator!=(const m32 &rhs) const { return rhs.v != v; }
   m32 pow(i64 n) const {
     m32 x(*this), res(1);
-    for (; n > 0; n >>= 1, x *= x) {
+    for (; n > 0; n >>= 1, x *= x)
       if (n & 1LL) res *= x;
-    }
     return res;
   }
   m32 inv() const {
@@ -57,9 +54,7 @@ template <uint32_t mod> struct m32 {
     return os << m.v;
   }
   friend istream &operator>>(istream &is, m32 &m) {
-    long long a;
-    is >> a;
-    m = m32<mod>(a);
+    long long a; is >> a; m = m32<mod>(a);
     return is;
   }
 };

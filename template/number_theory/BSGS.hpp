@@ -18,8 +18,6 @@ ll BSGS(ll a, ll n, ll mod) {
   return -1;  // No solution
 }
 
-#include "../number_theory/exgcd.hpp"
-
 ll inv(ll a, ll mod) {
   auto [res, _] = exgcd(a, mod);
   return (res % mod + mod) % mod;

@@ -15,7 +15,7 @@ template <typename T> struct Combination {
   }
 
   Combination(int MAX = 0)
-      : n(1), facs(1, T(1)), ifacs(1, T(1)), invs(1, T(1)) {
+    : n(1), facs(1, T(1)), ifacs(1, T(1)), invs(1, T(1)) {
     while (n <= MAX) extend();
   }
 
@@ -35,16 +35,16 @@ template <typename T> struct Combination {
     return invs[i];
   }
 
-  T C(int n, int r) const {
+  T C(int n, int r) {
     if (n < 0 || n < r || r < 0) return T(0);
     return fac(n) * ifac(r) * ifac(n - r);
   }
-  T P(int n, int r) const {
+  T P(int n, int r) {
     if (n < 0 || n < r || r < 0) return T(0);
     return fac(n) * ifac(n - r);
   }
-  T S2(int n, int k) const { 
-    T res(0); // O(k log n)
+  T S2(int n, int k) {
+    T res(0);
     for (int i = 0; i <= k; i++) {
       T t = T(k - i).pow(n) * C(k, i);
       (i & 1) ? res -= t : res += t;
@@ -63,3 +63,4 @@ template <typename T> struct Combination {
     return res;
   }
 };
+Combination<mint> comb;
