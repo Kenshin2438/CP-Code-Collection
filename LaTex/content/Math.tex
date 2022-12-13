@@ -4,7 +4,7 @@
 \section{Combination}
 \cppinput{../template/math/combination.hpp}
 
-\section{String Number Query}
+\section{Stirling Number Query}
 \cppinput{../template/math/stirling_number_module_small_p.hpp}
 
 \section{一些数学结论}
@@ -21,3 +21,18 @@ $$D[n] = (n-1)\times(D[n-1]+D[n-2]), D[0] = 1, D[1] = 0$$
 $$S=a+\frac{b}{2}-1$$
 
 其中$a$表示多边形内部的点数，$b$表示多边形边界上的点数，$S$表示多边形的面积。
+
+\subsection{约瑟夫环}
+一共有$n$个人，每数到$k$的人离开，求第$m$个离开的人的编号(1-indexed)。
+\begin{cpplist}
+ll Josephus(ll n, ll m, ll k) {
+  if (k == 1) return m;
+  ll index = (k - 1) % (n - m + 1);
+  for (ll cur = n - m + 2; cur <= n; cur++) {
+    index = (index + k) % cur;
+    ll tmp = min(n - cur, (cur - index - 1) / k) - 1;
+    if (tmp > 0) cur += tmp, index += tmp * k;
+  }
+  return index + 1;
+}
+\end{cpplist}

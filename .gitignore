@@ -3,3 +3,5 @@
 *.gch
 *.hpp.gch
 *.cpp__tests
+/problems
+/workspace

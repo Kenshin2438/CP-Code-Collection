@@ -1,8 +1,9 @@
 struct ODT {
   map<int, int> mp;
   ODT(int _ = 0, int unit = 0) { mp[_ - 1] = unit; }
-  void split(int x) { mp[x] = prev(mp.upper_bound(x))->second; }
+  // initialize [_, +infty)
   int get(int x) { return prev(mp.upper_bound(x))->second; }
+  void split(int x) { mp[x] = get(x); }
   void assign(int l, int r, int v) {  // assign [l, r), value v
     split(l), split(r);
     auto it = mp.find(l);

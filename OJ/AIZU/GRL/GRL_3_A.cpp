@@ -51,6 +51,7 @@ public:
   LowLink(int _n, int _m) : n(_n), m(_m), G(n) {
     for (int u, v, _ = 0; _ < m; _++) {
       cin >> u >> v;
+      --u, --v;
       G[u].emplace_back(v);
       G[v].emplace_back(u);
     }
