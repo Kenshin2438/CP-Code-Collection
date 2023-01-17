@@ -1,19 +1,12 @@
-% !TEX encoding = UTF-8 Unicode
-\documentclass[a4paper,12pt,twoside,fontset=fandol,UTF8]{ctexbook} 
-% 页面A4纸大小，12 磅大小的字体，式样为双面，编码为UTF8
-\usepackage[a4paper,scale=0.8,hcentering,bindingoffset=8mm]{geometry}
-% A4纸大小，缩放80%，设置奇数页右边留空多一点
-\usepackage{hyperref}      % 超链接
-\usepackage{listings}      % 代码块
-\usepackage{xcolor}        % 颜色
-\usepackage{courier}       % 字体
-\usepackage{fontspec}      % 字体
-\usepackage{fancyhdr}      % 页眉页脚相关宏包
-\usepackage{lastpage}      % 引用最后一页
-\usepackage{amsmath,amsthm,amsfonts,amssymb,bm} %数学
-\usepackage{graphicx}      % 图片
-\usepackage{subcaption}    % 图片描述
-\usepackage{longtable,booktabs} % 表格
+\documentclass[12pt, UTF8]{ctexbook} 
+\usepackage[a4paper, margin=1.25in]{geometry}
+\usepackage{hyperref} 
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{amsmath, amsthm, amsfonts, amssymb, bm}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{tikz}
 \usepackage{bookmark}
 
 % 代码块设置
@@ -53,11 +46,10 @@
   ]{#1}
 }
 
-\pagestyle{fancy}
-\begin{document}
-
 \title{ACM/ICPC Templates}
-\author{\textup{Kenshin2438}}
+\author{Kenshin2438}
+
+\begin{document}
 
 \begin{titlepage}
   \newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
@@ -68,7 +60,7 @@
   % \textsl{\large School of Electrical and Electronic Engineering}\\[0.5cm]
   \makeatletter
   \HRule \\[0.4cm]
-  { \huge \bfseries \@title }\\[0.4cm]
+  { \huge \bfseries \@title }\\[0.3cm]
   \HRule \\[1.5cm]
   \begin{minipage}{0.4\textwidth}
     \centering\large\@author
@@ -76,33 +68,23 @@
   \makeatother
   {\large The Alchemist of Pokémon}\\[2cm]
   {\large 
-    \emph{
-      When you have eliminated the impossibles, \\
-      whatever remains, however improbable, \\
-      must be the truth.}
+  \emph{When you have eliminated the impossibles, \\whatever remains, however improbable, must be the truth.}
   }\\[0.5cm]
   {\large \today}\\[2cm]
   \vfill
 \end{titlepage}
-\newpage % 封面背后空白页
+
+\frontmatter
 \tableofcontents
 
-\chapter{Misc}
-\setcounter{page}{1} % 这里页数从1开始计算
-\input{content/Misc.tex}
-\chapter{Number Theory}
-\input{content/Number Theory.tex}
-\chapter{Math}
-\input{content/Math.tex}
-\chapter{Data Structure}
-\input{content/Data Structure.tex}
-\chapter{String}
-\input{content/String.tex}
-\chapter{Graph}
-\input{content/Graph.tex}
-\chapter{Dynamic Programing}
-\input{content/Dynamic Programing.tex}
-\chapter{Polynomial}
-\input{content/Polynomial.tex}
+\mainmatter
+\include{content/Misc}
+\include{content/Number Theory}
+\include{content/Math}
+\include{content/Data Structure}
+\include{content/String}
+\include{content/Graph}
+\include{content/Dynamic Programing}
+\include{content/Polynomial}
 
 \end{document}

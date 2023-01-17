@@ -1,3 +1,4 @@
+\chapter{Number Theory}
 \section{BSGS}
 \cppinput{../template/number_theory/BSGS.hpp}
 
@@ -18,17 +19,17 @@
 \subsection{杜教筛}
 令$f(x)$为一个积性函数，求$S(n)=\sum_{i=1}^{n}f(i)$。考虑引入另一个函数$g(n)$，同时有$h(n)=f(n)*g(n)=\sum_{d \mid n}g(d)f(\frac{n}{d})$。
 
-$$
-\begin{aligned}
-\sum_{i=1}^{n}{h(i)}
-& = \sum_{i=1}^{n}\sum_{d \mid i}{g(d)f(\frac{i}{d})} \\
-& = \sum_{d=1}^{n}{g(d)}\sum_{i=1}^{\lfloor \frac{n}{d} \rfloor}{f(i)} \\
-& = \sum_{d=1}^{n}{g(d)S(\lfloor \frac{n}{d} \rfloor)} \\
-\Rightarrow 
-g(1)S(n) 
-& = \sum_{i=1}^{n}{h(i)}-\sum_{i=2}^{n}{g(i)S(\lfloor \frac{n}{i} \rfloor)}
-\end{aligned}
-$$
+\[
+  \begin{aligned}
+    \sum_{i=1}^{n}{h(i)}
+    & = \sum_{i=1}^{n}\sum_{d \mid i}{g(d)f(\frac{i}{d})} \\
+    & = \sum_{d=1}^{n}{g(d)}\sum_{i=1}^{\lfloor \frac{n}{d} \rfloor}{f(i)} \\
+    & = \sum_{d=1}^{n}{g(d)S(\lfloor \frac{n}{d} \rfloor)} \\
+    \Rightarrow 
+    g(1)S(n) 
+    & = \sum_{i=1}^{n}{h(i)}-\sum_{i=2}^{n}{g(i)S(\lfloor \frac{n}{i} \rfloor)}
+  \end{aligned}
+\]
 
 因此，引入的函数需要满足 $\sum{h(i)},\sum{g(i)}$ 都容易求得。
 
@@ -36,23 +37,20 @@ $$
 令$f(x)$为一个积性函数，求$S(n)=\sum_{i=1}^{n}f(i)$。考虑引入一个拟合函数$g(x)$，满足$g(p)=f(p)$，且$g(x)$为 \textbf{积性函数、前缀和易求}。
 
 令$h=f*g^{-1}$，即有$f(n)=h(n)*g(n)$。可知：
-
-$$f(p)=g(1)h(p)+h(1)g(p) \Rightarrow h(p)=0$$
-
+\[ f(p)=g(1)h(p)+h(1)g(p) \Rightarrow h(p)=0 \]
 所求的前缀和为:
-
-$$
-\begin{aligned}
-S(n) 
-&= \sum_{i=1}^{n}f(i) \\
-&= \sum_{i=1}^{n}\sum_{d\mid i}h(d)g(\frac{i}{d}) \\
-&= \sum_{d=1}^{n}h(d)\sum_{i=1}^{\lfloor\frac{n}{d}\rfloor}g(i)
-\end{aligned}
-$$
+\[
+  \begin{aligned}
+    S(n) 
+    &= \sum_{i=1}^{n}f(i) \\
+    &= \sum_{i=1}^{n}\sum_{d\mid i}h(d)g(\frac{i}{d}) \\
+    &= \sum_{d=1}^{n}h(d)\sum_{i=1}^{\lfloor\frac{n}{d}\rfloor}g(i)
+  \end{aligned}
+\]
 
 \begin{quotation}
 Powerful Number: 由于$h(p)=0$，且$h$为积性函数，则仅当$n$满足下面的条件时，$h(n)$才有贡献。
-$$n=\prod_{i=1}^{s} p_i^{t_i},\forall i \in [1, s],t_i>1$$
+\[ n=\prod_{i=1}^{s} p_i^{t_i},\forall i \in [1, s],t_i>1 \]
 **关于PN的数目**，从莫比乌斯函数的角度考虑，应该为$n-\sum_{i=1}^{n}\mu^2(i)$，但是这样并不能很好的计算值。
 这里用PN的一个性质，$n\in PN,\exists a,b, \mathrm{s.t. } n=a^2b^3$，则结果为$\sum_{a=1}^{\sqrt n}\sqrt[3]{\frac{n}{a^2}}$，用积分可以简单求值为$O(\sqrt n)$。
 \end{quotation}  

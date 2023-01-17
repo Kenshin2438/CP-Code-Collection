@@ -26,16 +26,17 @@
 \contentsline {subsection}{\numberline {3.4.2}Pick定理}{14}{subsection.3.4.2}%
 \contentsline {subsection}{\numberline {3.4.3}约瑟夫环}{15}{subsection.3.4.3}%
 \contentsline {chapter}{\numberline {第四章\hspace {.3em}}Data Structure}{17}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Chtholly Tree}{18}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Disjoint Set Union}{19}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Rollback-DSU}{19}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Weighted-DSU}{20}{subsection.4.2.2}%
-\contentsline {section}{\numberline {4.3}Fenwick Tree}{20}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Sparse Table}{21}{section.4.4}%
-\contentsline {section}{\numberline {4.5}Hash Map}{22}{section.4.5}%
-\contentsline {section}{\numberline {4.6}Ordered Set}{22}{section.4.6}%
-\contentsline {section}{\numberline {4.7}Segment Tree}{23}{section.4.7}%
-\contentsline {section}{\numberline {4.8}KD Tree}{24}{section.4.8}%
+\contentsline {section}{\numberline {4.1}Linear Basis}{17}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Chtholly Tree}{18}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Disjoint Set Union}{19}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Rollback-DSU}{19}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Weighted-DSU}{20}{subsection.4.3.2}%
+\contentsline {section}{\numberline {4.4}Fenwick Tree}{20}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Sparse Table}{21}{section.4.5}%
+\contentsline {section}{\numberline {4.6}Hash Map}{22}{section.4.6}%
+\contentsline {section}{\numberline {4.7}Ordered Set}{22}{section.4.7}%
+\contentsline {section}{\numberline {4.8}Segment Tree}{23}{section.4.8}%
+\contentsline {section}{\numberline {4.9}KD Tree}{24}{section.4.9}%
 \contentsline {chapter}{\numberline {第五章\hspace {.3em}}String}{27}{chapter.5}%
 \contentsline {section}{\numberline {5.1}Suffix Array}{27}{section.5.1}%
 \contentsline {subsection}{\numberline {5.1.1}SA-doubling}{27}{subsection.5.1.1}%
