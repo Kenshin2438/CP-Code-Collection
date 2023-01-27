@@ -22,12 +22,6 @@
 			"#include <bits/stdc++.h>",
 			"using namespace std;",
 			"",
-			"#ifdef LOCAL",
-			"#include \"debug.hpp\"",
-			"#else",
-			"#define debug(...) 42",
-			"#endif",
-			"",
 			"using ll = long long;",
 			"#define all(a) begin(a), end(a)",
 			"#define sz(x) (int)((x).size())",
@@ -48,4 +42,16 @@
 		],
 		"description": "initialize"
 	},
+	"debug mode": {
+		"scope": "c++,cpp,cxx",
+		"prefix": "dbg",
+		"body": [
+			"#ifdef LOCAL",
+			"#include \"debug.hpp\"",
+			"#else",
+			"#define debug(...) 42",
+			"#endif",
+		],
+		"description": "Debug Mode"
+	}
 }

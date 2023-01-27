@@ -1,24 +1,28 @@
 {
     "configurations": [
         {
-            "name": "Win32",
+            "name": "GCC",
             "includePath": [
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/**",
+                "D:/Document/repos/Code-of-ACM/template/debug/"
             ],
             "defines": [
                 "_DEBUG",
                 "UNICODE",
-                "_UNICODE"
+                "_UNICODE",
+                "LOCAL"
             ],
-            "compilerPath": "D:/Software/scoop/apps/gcc/current/bin/g++.exe",
+            "compilerPath": "D:/Software/scoop/apps/msys2/current/mingw64/bin/g++.exe",
             "cStandard": "c17",
             "cppStandard": "c++17",
             "intelliSenseMode": "windows-gcc-x64",
             "compilerArgs": [
-                "-Ofast",
-                "-std=c++17",
-                "-DLOCAL"
+                "-O2",
+                "-Wall", 
+                "-Wextra", 
+                "-Wl,--stack=268435456",
             ]
+
         }
     ],
     "version": 4

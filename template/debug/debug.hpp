@@ -14,8 +14,7 @@
 #include <vector>
 using namespace std;
 
-template <class T> string to_string(const T &v);
-
+// 字符串
 string to_string(const string &s) { 
   string res = "";
   res.append("\"").append(s).append("\"");
@@ -23,12 +22,14 @@ string to_string(const string &s) {
 }
 string to_string(const char *s) { return to_string((string)s); }
 string to_string(char s[]) { return to_string(string(s)); }
+// 字符
 string to_string(const char &c) {
   string res = "";
   res.append("'").append(1, c).append("'");
   return res;
 }
-string to_string(bool b) { return (b ? "true" : "false"); }
+// 布尔类型
+string to_string(const bool &b) { return (b ? "true" : "false"); }
 string to_string(const vector<bool> &v) {
   string res = "{";
   for (int i = 0; i < static_cast<int>(v.size()); i++) {
@@ -37,12 +38,13 @@ string to_string(const vector<bool> &v) {
   }
   return res += "}", res;
 }
-template <size_t N>
-string to_string(const bitset<N> &v) {
+// Bitset
+template <size_t N> string to_string(const bitset<N> &v) {
   string res = "";
   for (size_t i = 0; i < N; i++) res += static_cast<char>('0' + v[i]);
   return res;
 }
+// pair, tuple
 template <typename A, typename B>
 string to_string(const pair<A, B> &p) {
   return "(" + to_string(p.first) + ", " + to_string(p.second) + ")";
@@ -61,8 +63,8 @@ string to_string(const tuple<A, B, C, D> &p) {
   return "(" + to_string(get<0>(p)) + ", " + to_string(get<1>(p)) + ", " +
          to_string(get<2>(p)) + ", " + to_string(get<3>(p)) + ")";
 }
-template <typename A>
-string to_string(const A &v) {
+// 枚举容器
+template <typename A> string to_string(const A &v) {
   bool first = true;
   string res = "{";
   for (const auto &x : v) {

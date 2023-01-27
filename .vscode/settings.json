@@ -87,6 +87,8 @@
     "typeinfo": "cpp",
     "variant": "cpp",
     "rope": "cpp",
-    "slist": "cpp"
+    "slist": "cpp",
+    "locale": "cpp",
+    "ios": "cpp"
   }
 }

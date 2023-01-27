@@ -11,20 +11,15 @@
             "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
             "args": [],
             "stopAtEntry": false,
-            "cwd": "D:/Software/scoop/apps/gcc/current/bin",
+            "cwd": "${fileDirname}",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",
-            "miDebuggerPath": "D:\\Software\\scoop\\apps\\gdb\\current\\bin\\gdb.exe",
+            "miDebuggerPath": "D:\\Software\\scoop\\apps\\msys2\\current\\mingw64\\bin\\gdb.exe",
             "setupCommands": [
                 {
-                    "description": "为 gdb 启用整齐打印",
+                    "description": "Enable pretty-printing for gdb",
                     "text": "-enable-pretty-printing",
-                    "ignoreFailures": true
-                },
-                {
-                    "description": "将反汇编风格设置为 Intel",
-                    "text": "-gdb-set disassembly-flavor intel",
                     "ignoreFailures": true
                 }
             ],
