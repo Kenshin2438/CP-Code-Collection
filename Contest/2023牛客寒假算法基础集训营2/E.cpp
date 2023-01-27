@@ -13,9 +13,23 @@ using ll = long long;
 
 void solve() {
   ll n, l, r; cin >> n >> l >> r;
-  if (n <= l) return cout << l << "\n", void();
-  for (int i = 0; i < n; i++) {
-    
+  auto f = [n](ll x) { return n / x + x; };
+  ll x = sqrtl(n);
+  if (l > x) {
+    cout << l << '\n';
+  } else {
+    if (f(x) >= f(x + 1)) x += 1;
+    r = min(x, r);
+    ll fans = f(r), ans;
+    while (l <= r) {
+      ll mid = (l + r) >> 1;
+      if (f(mid) == fans) {
+        ans = mid, r = mid - 1;
+      } else {
+        l = mid + 1;
+      }
+    }
+    cout << ans << '\n';
   }
 }
 
