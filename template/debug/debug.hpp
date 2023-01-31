@@ -1,82 +1,57 @@
+/**
+ * Based on url('https://codeforces.com/contest/1787/submission/191105890')
+ * ANSI Escape Sequences: https://gist.github.com/fnky/458719343aabd01cfb17a3a4f7296797
+ * TODO: 
+*/
+
 #pragma once
 
-#include <bitset>
-#include <deque>
-#include <iostream>
-#include <list>
-#include <map>
-#include <queue>
-#include <set>
-#include <string>
-#include <tuple>
-#include <unordered_map>
-#include <unordered_set>
-#include <vector>
-using namespace std;
-
-// 字符串
-string to_string(const string &s) { 
-  string res = "";
-  res.append("\"").append(s).append("\"");
-  return res;
-}
-string to_string(const char *s) { return to_string((string)s); }
-string to_string(char s[]) { return to_string(string(s)); }
-// 字符
-string to_string(const char &c) {
-  string res = "";
-  res.append("'").append(1, c).append("'");
-  return res;
-}
-// 布尔类型
-string to_string(const bool &b) { return (b ? "true" : "false"); }
-string to_string(const vector<bool> &v) {
-  string res = "{";
-  for (int i = 0; i < static_cast<int>(v.size()); i++) {
-    if (i != 0) res += ", ";
-    res += to_string(v[i]);
-  }
-  return res += "}", res;
-}
-// Bitset
-template <size_t N> string to_string(const bitset<N> &v) {
-  string res = "";
-  for (size_t i = 0; i < N; i++) res += static_cast<char>('0' + v[i]);
-  return res;
-}
+// 基本数据类型
+void __print(const int &x) { std::cerr << x; }
+void __print(const long &x) { std::cerr << x; }
+void __print(const long long &x) { std::cerr << x; }
+void __print(const unsigned &x) { std::cerr << x; }
+void __print(const unsigned long &x) { std::cerr << x; }
+void __print(const unsigned long long &x) { std::cerr << x; }
+void __print(const float &x) { std::cerr << x; }
+void __print(const double &x) { std::cerr << x; }
+void __print(const long double &x) { std::cerr << x; }
+void __print(const bool &x) { std::cerr << (x ? "true" : "false"); }
+void __print(const char &x) { std::cerr << '\'' << x << '\''; }
+void __print(const char *x) { std::cerr << '\"' << x << '\"'; }
+void __print(char *x) { std::cerr << '\"' << x << '\"'; }
+void __print(const std::string &x) { std::cerr << '\"' << x << '\"'; }
 // pair, tuple
 template <typename A, typename B>
-string to_string(const pair<A, B> &p) {
-  return "(" + to_string(p.first) + ", " + to_string(p.second) + ")";
-}
-template <typename A, typename B>
-string to_string(const tuple<A, B> &p) {
-  return "(" + to_string(get<0>(p)) + ", " + to_string(get<1>(p)) + ", ";
+void __print(const std::pair<A, B> &p) {
+  std::cerr << "(";
+  __print(p.first);
+  std::cerr << ", ";
+  __print(p.second);
+  std::cerr << ")";
 }
 template <typename A, typename B, typename C>
-string to_string(const tuple<A, B, C> &p) {
-  return "(" + to_string(get<0>(p)) + ", " + to_string(get<1>(p)) + ", " +
-         to_string(get<2>(p)) + ")";
-}
-template <typename A, typename B, typename C, typename D>
-string to_string(const tuple<A, B, C, D> &p) {
-  return "(" + to_string(get<0>(p)) + ", " + to_string(get<1>(p)) + ", " +
-         to_string(get<2>(p)) + ", " + to_string(get<3>(p)) + ")";
+void __print(const std::tuple<A, B, C> &p) {
+  std::cerr << "(";
+  __print(std::get<0>(p));
+  std::cerr << ", ";
+  __print(std::get<1>(p));
+  std::cerr << ", ";
+  __print(std::get<2>(p));
+  std::cerr << ")";
 }
 // 枚举容器
-template <typename A> string to_string(const A &v) {
-  bool first = true;
-  string res = "{";
-  for (const auto &x : v) {
-    if (!first) res += ", ";
-    first = false;
-    res += to_string(x);
-  }
-  return res += "}", res;
+template <typename T> void __print(const T &x) {
+  int f = 0;
+  std::cerr << '{';
+  for (auto &i : x) std::cerr << (f++ ? ", " : ""), __print(i);
+  std::cerr << "}";
 }
-void debug_out() { cerr << endl; }
+// Debug Mode
+void debug_out() { std::cerr << "\e[92m" << std::endl; }
 template <typename Head, typename... Tail>
 void debug_out(Head H, Tail... T) {
-  cerr << " " << to_string(H), debug_out(T...);
+  std::cerr << " ", __print(H), debug_out(T...);
 }
-#define debug(...) cerr << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__)
+#define debug(...) std::cerr << "\e[91m" << __func__ << ":" << __LINE__ << " [" << #__VA_ARGS__ << "] =", debug_out(__VA_ARGS__) 
+// 输出 __func__ << ":" << __LINE__ 提debug的位置信息（函数，行号）
