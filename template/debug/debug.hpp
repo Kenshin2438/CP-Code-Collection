@@ -1,27 +1,27 @@
 /**
- * Based on url('https://codeforces.com/contest/1787/submission/191105890')
- * ANSI Escape Sequences: https://gist.github.com/fnky/458719343aabd01cfb17a3a4f7296797
- * TODO: 
-*/
+ * Based on submission('https://codeforces.com/contest/1787/submission/191105890') 
+ * ANSI Escape Sequences: https://gist.github.com/fnky/458719343aabd01cfb17a3a4f7296797 
+ */
 
 #pragma once
 
-// 基本数据类型
-void __print(const int &x) { std::cerr << x; }
-void __print(const long &x) { std::cerr << x; }
-void __print(const long long &x) { std::cerr << x; }
-void __print(const unsigned &x) { std::cerr << x; }
-void __print(const unsigned long &x) { std::cerr << x; }
-void __print(const unsigned long long &x) { std::cerr << x; }
-void __print(const float &x) { std::cerr << x; }
-void __print(const double &x) { std::cerr << x; }
-void __print(const long double &x) { std::cerr << x; }
-void __print(const bool &x) { std::cerr << (x ? "true" : "false"); }
-void __print(const char &x) { std::cerr << '\'' << x << '\''; }
-void __print(const char *x) { std::cerr << '\"' << x << '\"'; }
-void __print(char *x) { std::cerr << '\"' << x << '\"'; }
+#include <iostream>
+#include <type_traits>
+#include <string>
+
+namespace dbg {
+// arithmetic
+template <class T, std::enable_if_t<std::is_arithmetic_v<T>, int> = 0>
+void __print(const T &x) { std::cerr << std::boolalpha << x; }
+
+// string
 void __print(const std::string &x) { std::cerr << '\"' << x << '\"'; }
-// pair, tuple
+
+// bitset
+template <std::size_t N> void __print(const bitset<N> &Bs) 
+{ std::cerr << Bs; }
+
+// pair
 template <typename A, typename B>
 void __print(const std::pair<A, B> &p) {
   std::cerr << "(";
@@ -30,28 +30,40 @@ void __print(const std::pair<A, B> &p) {
   __print(p.second);
   std::cerr << ")";
 }
-template <typename A, typename B, typename C>
-void __print(const std::tuple<A, B, C> &p) {
-  std::cerr << "(";
-  __print(std::get<0>(p));
-  std::cerr << ", ";
-  __print(std::get<1>(p));
-  std::cerr << ", ";
-  __print(std::get<2>(p));
-  std::cerr << ")";
-}
-// 枚举容器
-template <typename T> void __print(const T &x) {
+
+// Iterable https://spectre-code.org/sfinae.html
+template <typename T, typename = std::void_t<>>
+struct is_iterable : public std::false_type {};
+ 
+template <typename T>
+struct is_iterable<T, std::void_t<decltype(std::declval<T>().begin(),
+                                           std::declval<T>().end())>>
+    : public std::true_type {};
+
+template <typename T>
+using is_iterable_t = typename is_iterable<T>::type;
+ 
+template <typename T>
+inline constexpr bool is_iterable_v = is_iterable<T>::value;
+
+template <class T, std::enable_if_t<dbg::is_iterable_v<T>, int> = 0>
+void __print(const T &v) {
   int f = 0;
   std::cerr << '{';
-  for (auto &i : x) std::cerr << (f++ ? ", " : ""), __print(i);
+  for (const auto &i : v) std::cerr << (f++ ? ", " : ""), __print(i);
   std::cerr << "}";
 }
+
 // Debug Mode
-void debug_out() { std::cerr << "\e[92m" << std::endl; }
+void debug_out() { std::cerr << "\e[0m" << std::endl; }
 template <typename Head, typename... Tail>
 void debug_out(Head H, Tail... T) {
   std::cerr << " ", __print(H), debug_out(T...);
 }
-#define debug(...) std::cerr << "\e[91m" << __func__ << ":" << __LINE__ << " [" << #__VA_ARGS__ << "] =", debug_out(__VA_ARGS__) 
+#define debug(...)                                                             \
+  std::cerr << "\e[91m" << __func__ << ":" << __LINE__ << " [" << #__VA_ARGS__ \
+            << "] =",                                                          \
+      debug_out(__VA_ARGS__)
 // 输出 __func__ << ":" << __LINE__ 提debug的位置信息（函数，行号）
+};
+using namespace dbg;
