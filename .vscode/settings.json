@@ -89,6 +89,9 @@
     "rope": "cpp",
     "slist": "cpp",
     "locale": "cpp",
-    "ios": "cpp"
+    "ios": "cpp",
+    "expected": "cpp",
+    "spanstream": "cpp",
+    "stacktrace": "cpp"
   }
 }

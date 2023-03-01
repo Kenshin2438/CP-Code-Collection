@@ -15,28 +15,28 @@
                 "-Wextra",
                 "-Wfloat-equal",
                 "-Wl,--stack=268435456",
-                "-O2",
-                "-std=gnu++17",
-                "-DLOCAL", // Debug
-                "-ID:\\Document\\repos\\Code-of-ACM\\template\\debug",
+                "-std=c++17",
+                "-DLOCAL",
+                "-ID:\\Document\\repos\\Code-of-ACM\\template\\debug"
             ],
             "options": {
                 "cwd": "${fileDirname}"
             },
-            "problemMatcher": ["$gcc"],
+            "problemMatcher": "$gcc",
             "group": {
                 "kind": "build",
                 "isDefault": true
             },
             "presentation": {
                 "echo": false,
+                "reveal": "silent",
                 "showReuseMessage": false,
             }
         },
-        { // 配置 "F8" 编译运行
-            "type": "shell", 
-            "label": "CppRun",
-            "dependsOn": "CppBuild",
+        {
+            "type": "shell",
+            "label": "CppBuildAndRun",
+            "dependsOn": "CppBuild", // TODO: 自动判定是否需要重新编译
             "command": "${fileDirname}\\${fileBasenameNoExtension}.exe",
             "group": {
                 "kind": "test",
