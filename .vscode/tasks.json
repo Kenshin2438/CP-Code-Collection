@@ -1,52 +1,22 @@
 {
-    "version": "2.0.0",
-    "tasks": [
-        {
-            "type": "cppbuild",
-            "label": "CppBuild",
-            "command": "g++",
-            "args": [
-                "-fdiagnostics-color=always",
-                "-g",
-                "${file}",
-                "-o",
-                "${fileDirname}\\${fileBasenameNoExtension}.exe",
-                "-Wall",
-                "-Wextra",
-                "-Wfloat-equal",
-                "-Wl,--stack=268435456",
-                "-std=c++17",
-                "-DLOCAL",
-                "-ID:\\Document\\repos\\Code-of-ACM\\template\\debug"
-            ],
-            "options": {
-                "cwd": "${fileDirname}"
-            },
-            "problemMatcher": "$gcc",
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
-            "presentation": {
-                "echo": false,
-                "reveal": "silent",
-                "showReuseMessage": false,
-            }
-        },
-        {
-            "type": "shell",
-            "label": "CppBuildAndRun",
-            "dependsOn": "CppBuild", // TODO: 自动判定是否需要重新编译
-            "command": "${fileDirname}\\${fileBasenameNoExtension}.exe",
-            "group": {
-                "kind": "test",
-                "isDefault": true
-            },
-            "presentation": {
-                "echo": false,
-                "focus": true,
-                "panel": "shared",
-            },
-        }
-    ]
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "shell",
+      "label": "CppBuildAndRun",
+      "command": "${workspaceFolder}/.vscode/acm-run.ps1",
+      "args": [
+        "${fileDirname}\\${fileBasenameNoExtension}"
+      ],
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "presentation": {
+        "echo": false,
+        "focus": true,
+        "panel": "shared",
+      },
+    }
+  ]
 }
