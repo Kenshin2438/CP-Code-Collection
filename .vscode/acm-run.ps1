@@ -1,9 +1,8 @@
 param($srcPath)
 
-$srcTime = $(Get-Item "$srcPath.cpp" -ErrorAction Stop).lastwritetime 
-
+$srcTime = $(Get-Item "$srcPath.cpp" -ErrorAction Stop).LastWriteTime 
 try {
-  $exeTime = $(Get-Item "$srcPath.exe" -ErrorAction SilentlyContinue).lastwritetime 
+  $exeTime = $(Get-Item "$srcPath.exe" -ErrorAction SilentlyContinue).LastWriteTime 
 } catch {
   $exeTime = 0
 }
@@ -18,8 +17,12 @@ if ($exeTime -lt $srcTime) {
 
   Write-Host "$srcPath.exe Build Success" -ForegroundColor Green
 } else {
-  Write-Host "$srcPath.exe is up to date" -ForegroundColor Cyan
+  Write-Host "$srcPath.exe is up to date" -ForegroundColor Blue
 }
 
 Write-Host ""
-time "$srcPath.exe"
+$TimeWatcher = $(Measure-Command -Expression {
+  . "$srcPath.exe" | Write-Host -ForegroundColor DarkGreen
+}).TotalMilliseconds
+Write-Host ""
+Write-Host "Time: $TimeWatcher ms"
