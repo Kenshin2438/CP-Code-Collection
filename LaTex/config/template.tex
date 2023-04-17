@@ -1,0 +1,109 @@
+%% 页面设置
+\usepackage{geometry}
+\geometry{a4paper, scale=0.8}
+\usepackage{fancyhdr}
+\pagestyle{plain}
+\usepackage{enumitem} % 改善列表间距 \setlength{\itemsep}{-0.1cm}
+
+%% 符号、字体
+\usepackage{amsmath, amssymb, amsthm, bm, mathrsfs}
+\usepackage{unicode-math}
+\usepackage{fixdif} % 微分符号 https://zhuanlan.zhihu.com/p/521009044
+\usepackage{fontspec}
+\newfontface\EmojiFont{Segoe UI Emoji}%[Renderer=HarfBuzz]
+\usepackage[dvipsnames]{xcolor}
+
+%% 引入图片、绘制矢量图
+\usepackage{graphicx}
+\graphicspath{ 
+  {./images/}
+  {../images/}
+}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{tikz, pgf}
+\usetikzlibrary{automata, positioning, arrows}
+
+%% 代码块
+\usepackage{listings}
+\setmonofont{Monaco}[AutoFakeBold]
+\lstnewenvironment{cpplist}{
+  \lstset{
+    language=C++,
+    basicstyle=\footnotesize\ttfamily,
+    keywordstyle=\color{purple}\bfseries,
+    commentstyle=\color{gray},
+    frame=lines,
+    tabsize=2,
+    lineskip=-1.5pt,
+    extendedchars=true,
+    escapeinside=``,
+    breaklines=true,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+  }
+}{}
+\newcommand{\cppinput}[1]{
+  \lstinputlisting[
+    language=C++,
+    basicstyle=\footnotesize\ttfamily,
+    keywordstyle=\color{purple}\bfseries,
+    commentstyle=\color{gray},
+    frame=lines,
+    tabsize=2,
+    lineskip=-1.5pt,
+    extendedchars=true,
+    escapeinside=``,
+    breaklines=true,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+  ]{#1}
+}
+% \usepackage{minted}
+% \usemintedstyle[cpp]{murphy}
+% \setminted[cpp]{
+%   frame = lines,
+%   framesep = 2mm,
+%   baselinestretch = 1,
+%   mathescape
+% }
+
+%% 链接、索引
+\usepackage[colorlinks, linkcolor=black]{hyperref}
+\usepackage{makeidx}
+\makeindex
+\bibliographystyle{plain}
+
+%% 定理环境 https://ask.latexstudio.net/ask/article/647.html
+\newtheoremstyle{mystyle}                                % 样式名
+  {}                                                     % 上方间距
+  {}                                                     % 下方间距
+  {\normalfont}                                          % 主体字体
+  {}                                                     % 缩进量
+  {\bfseries}                                            % 标题字体
+  {}                                                     % 标题后的点
+  { }                                                    % 标题后的空白符
+  {\underline{\thmname{#1}\thmnumber{#2}\thmnote{(#3)}}} % 标题样式
+\theoremstyle{mystyle}
+
+% \newtheorem{<环境名>}[<共享计数器>]{<定理头文本>}
+\newtheorem{theorem}{定理}[section]
+\newtheorem{lemma}{引理}[section]
+\renewcommand{\proofname}{证明}
+
+\makeatletter % use at mark
+\renewenvironment{proof}[1][\proofname]{\par
+  \pushQED{\qed}%
+  \normalfont \topsep6\p@\@plus6\p@\relax
+  \trivlist
+  \item[\hskip\labelsep
+        \itshape
+    {\bf\underline{#1}}]\ignorespaces
+    % {\bf\underline{#1}\@addpunct{.}}]\ignorespaces
+}{
+  \popQED\endtrivlist\@endpefalse
+}
+\providecommand{\proofname}{Proof}
+\makeatother % end at mark

@@ -1,0 +1,147 @@
+\chapter{Number Theory}
+
+\section{BSGS}
+\cppinput{../template/number_theory/BSGS.hpp}
+
+% \section{二次剩余}
+% \subsection{Cipolla}
+% \cppinput{../template/number_theory/Cipolla.hpp}
+% \subsection{Tonelli Shanks}
+% \cppinput{../template/number_theory/Tonelli_Shanks.hpp}
+
+% \section{Ex-gcd}
+% 得到的结果满足 $|x|+|y|$ 最小 (首要的) 同时有 $x ≤ y$ (其次)。
+% \cppinput{../template/number_theory/exgcd.hpp}
+
+% \section{Miller-Rabin Test}
+% \cppinput{../template/number_theory/miller_rabin.hpp}
+
+\section{Sieve}
+\subsection{杜教筛}
+令$f(x)$为一个积性函数，求$S(n)=\sum_{i=1}^{n}f(i)$。
+考虑引入另一个函数$g(n)$，同时有$h(n)=f(n)*g(n)=\sum_{d \mid n}g(d)f(\frac{n}{d})$。
+
+\[
+  \begin{aligned}
+    \sum_{i=1}^{n}{h(i)}
+    & = \sum_{i=1}^{n}\sum_{d \mid i}{g(d)f(\frac{i}{d})} \\
+    & = \sum_{d=1}^{n}{g(d)}\sum_{i=1}^{\lfloor \frac{n}{d} \rfloor}{f(i)} \\
+    & = \sum_{d=1}^{n}{g(d)S(\lfloor \frac{n}{d} \rfloor)} \\
+    \Rightarrow 
+    g(1)S(n) 
+    & = \sum_{i=1}^{n}{h(i)}-\sum_{i=2}^{n}{g(i)S(\lfloor \frac{n}{i} \rfloor)}
+  \end{aligned}
+\]
+
+因此，引入的函数需要满足 $\sum{h(i)},\sum{g(i)}$ 都容易求得。
+
+\subsection{Powerful Number筛}
+令$f(x)$为一个积性函数，求$S(n)=\sum_{i=1}^{n}f(i)$。考虑引入一个拟合函数$g(x)$，满足$g(p)=f(p)$，且$g(x)$为 \textbf{积性函数、前缀和易求}。
+
+令$h=f*g^{-1}$，即有$f(n)=h(n)*g(n)$。可知：
+\[ f(p)=g(1)h(p)+h(1)g(p) \Rightarrow h(p)=0 \]
+所求的前缀和为:
+\[
+  \begin{aligned}
+    S(n) 
+    &= \sum_{i=1}^{n}f(i) \\
+    &= \sum_{i=1}^{n}\sum_{d\mid i}h(d)g(\frac{i}{d}) \\
+    &= \sum_{d=1}^{n}h(d)\sum_{i=1}^{\lfloor\frac{n}{d}\rfloor}g(i)
+  \end{aligned}
+\]
+
+由于$h(p)=0$，且$h$为积性函数，则仅当$n$满足下面的条件时，$h(n)$才有贡献。
+\[ n=\prod_{i=1}^{s} p_i^{t_i},\forall i \in [1, s],t_i>1 \]
+
+通过 $f(p^k)=\sum_{d\mid p^k}h(d)g(\frac{p^k}{d})=\sum_{i=0}^{k}h(p^i)g(p^{k-i})$，
+合适条件下利用$f(p^k),f(p^{k+1})$推出$h(p^k)$的表达式。
+
+\subsection{Min25筛}
+
+满足条件：$f(p)$为一个低阶多项式，即$\sum a_ip^{s_i}$的形式（或者表达式是完全积性且易求前缀和的），且$f(p^s)$易求得。
+
+\[
+  \begin{aligned}
+  S(n)=\sum_{i=1}^{n}{f(i)}
+  &=f(1)+\sum_{2\leq p\leq n}\sum_{2\leq i\leq n \atop LPF(i)=p}{f(i)} \\
+  &=f(1)+\sum_{2\leq p\leq \sqrt n}\sum_{2\leq i\leq n \atop LPF(i)=p}{f(i)}+\sum_{\sqrt n < p\leq n}{f(p)} \\
+  &=1+\sum_{2\leq p\leq \sqrt n}\sum_{e\geq 1 \atop 2\leq p^e \leq n}{f(p^e)}\left(1 + \sum_{2\leq j\leq \lfloor \frac{n}{p^e} \rfloor \atop LPF(j)>p}{f(j)} \right)+\sum_{\sqrt n<p\leq n}{f(p)} \\
+  \end{aligned}
+\]
+
+对于其中的关键部分，
+\[
+  \begin{aligned}
+  G(n,m)
+  &=\sum_{2\leq i\leq n \atop LPF(i)>m}{f(i)} \\
+  &=\sum_{m<p\leq \sqrt n}\sum_{e\geq 1 \atop 2\leq p^e\leq n}f(p^e)\left(1+\sum_{2\leq j\leq \lfloor\frac{n}{p^e} \rfloor \atop LPF(j)>p}f(j) \right) +\sum_{\sqrt n < p\leq n}{f(p)}  \\
+  &=\sum_{m<p\leq\sqrt n}\sum_{e\geq 1 \atop 2\leq p^e\leq n}{f(p^e)}\left([e>1]+ \sum_{2\leq j\leq \lfloor\frac{n}{p^e} \rfloor \atop LPF(j)>p}{f(j)} \right)+\sum_{m<p\leq n}f(p) \\
+  &=\sum_{m<p\leq\sqrt n}\sum_{e\geq 1 \atop 2\leq p^e\leq n}{f(p^e)}\left([e>1]+G(\lfloor \frac{n}{p^e} \rfloor,p) \right)+\left(F(n)-F(m)\right) \\
+  \end{aligned}
+\]
+其中$F(n)$表示$n$以内的全部素数的贡献。
+
+只要预处理$F(i)$，就能通过递推得到答案$S(n)=G(n,0)+1$。
+考虑这样一个函数$H(i,n)=\sum_{1\leq k\leq n, k\in Prime \lor k=1 \lor LPF(k)>p_i}{k^s}$。满足递推关系：
+\[
+  H(i,n)=
+  \begin{cases}
+    H(i-1,n)-p_i^s\left(H(i-1,\lfloor\frac{n}{p_i}\rfloor)-H(i-1,p_{i-1})\right) & \textrm{if } p_i\leq\sqrt{n}  \\
+    H(i-1,n)		& \textrm{otherwise}
+  \end{cases}
+\]
+其中$H(i-1,p_{i-1})$表示前$i-1$个素数和$1$ 的贡献。
+\vspace{0.5cm}
+
+根据$H(i,n)$与$F(n)$的关系$F(n)=H(+\infty,n)$，只需要$\sqrt{n}$以内的素数就能求出$F(n)$。此处$+\infty$仅意味着确保只有质数的贡献，实际上只需要$\pi(\sqrt n)$就可以，\textbf{注意去掉1的贡献}。
+
+\subsection{代码样例}
+
+\begin{cpplist}
+void init() {
+  sq = sqrt(n);
+  for (int i = 2; i <= sq; i++) {
+    if (!ok[i]) pr[++ cnt] = i;
+    for (int j = 1; j <= cnt && pr[j] * i <= sq; j++) {
+      ok[pr[j] * i] = 1;
+      if (i % pr[j] == 0) break;
+    }
+  }
+  for (int i = 1; i <= cnt; i++) s[i] = (s[i-1] + f(p)) % mod;
+  for (ll l = 1, r; l <= n; l = r + 1) {
+    r = n / (n / l); block[++ tot] = n / l;
+    H[tot] = (sum(block[tot] % mod) - 1 + mod) % mod;
+    block[tot] <= sq 
+      ? idx1[block[tot]] = tot 
+      : idx2[n / block[tot]] = tot;
+  }
+  for (int i = 1; i <= cnt; i++) {
+    for (int j = 1; j <= tot && pr[i] * pr[i] <= block[j]; j++) {
+      ll tmp = block[j] / pr[i];
+      int pos = tmp <= sq ? idx1[tmp] : idx2[n / tmp];
+      H[j] = (H[j] - (H[pos] - s[i-1] + mod) % mod * pr[i] % mod + mod) % mod;
+    }
+  }
+}
+
+ll G(ll x, int i) {
+  if (pr[i] >= x) return 0;
+  int pos = x <= sq ? idx1[x] : idx2[n / x];
+  ll res = (H[pos] - s[i] + mod) % mod;
+  for (int k = i + 1; k <= cnt && pr[k] * pr[k] <= x; k++) {
+    ll pe = pr[k];
+    for (int e = 1; pe <= x; e++, pe = pe * pr[k]) {
+      res = (res + f(pe) * (G(x / pe, k) + (e > 1)) % mod) % mod;
+    }
+  } return res;
+}
+\end{cpplist}
+
+\subsection{一些卷积}
+
+\begin{itemize}\setlength{\itemsep}{-0.1cm}
+  \item $\sum_{d\mid n}\varphi(d)=n$
+  \item $\sum_{d\mid n}\mu(d)=[n=1]$
+  \item $f(n)=\sum_{d\mid n}\mu(d)g(\frac{n}{d})\Rightarrow g(n)=\sum_{d\mid n}f(d)$
+  \item $\sum_{d\mid n}\mu(d)f(d) = \prod_{p\mid n,p\in Prime}\left(1-f(p)\right)$ \textbf{未严格验证}
+\end{itemize}

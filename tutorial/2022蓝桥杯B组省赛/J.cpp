@@ -17,7 +17,7 @@ int main() {
       now.push_back(H);
       has |= binary_search(pre.rbegin(), pre.rend(), H);
       ans += (has == false);
-      H = sqrt(H / 2 + 1);
+      H = sqrt(H / 2 + 1.0l); // 转成 long double 规避精度误差
     }
     pre = move(now);
   }

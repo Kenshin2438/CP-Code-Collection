@@ -186,6 +186,8 @@
 容易发现，操作 $H \rightarrow \lfloor\sqrt{\lfloor\frac{H}{2}\rfloor+1}\rfloor$ 会使得 $H$ 快速收敛至 $1$ 。我们以这样一种思路来考虑：
 
 假设已经砍了 $i-1$ 棵竹子，当前是第 $i$ 颗。首先，当前的竹子一定会经过上述的操作到达 $1$ 。这个过程中可能会出现 \emph{当前竹子的高度与前一颗竹子在某一时刻的高度一致} 的情况，一旦出现则表明此后的步骤可以同前一颗竹子一起进行。使用二分、\texttt{std::set}或\texttt{std::map}等均可通过此题。
+
+\textit{开方时，注意long long的精度问题，应当先转成long double}
 \cppinput{J.cpp}
 
 \end{document}

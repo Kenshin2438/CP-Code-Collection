@@ -1,90 +1,20 @@
-\documentclass[12pt, UTF8]{ctexbook} 
-\usepackage[a4paper, margin=1.25in]{geometry}
-\usepackage{hyperref} 
-\usepackage{listings}
-\usepackage{xcolor}
-\usepackage{amsmath, amsthm, amsfonts, amssymb, bm}
-\usepackage{graphicx}
-\usepackage{subcaption}
-\usepackage{tikz}
-\usepackage{bookmark}
-
-% 代码块设置
-\setmonofont{Monaco}[AutoFakeBold]
-\lstnewenvironment{cpplist}{
-  \lstset{
-    language=C++,
-    basicstyle=\footnotesize\ttfamily\zihao{5},
-    keywordstyle=\color{purple}\bfseries\zihao{5},
-    commentstyle=\color{gray},
-    frame=lines,
-    tabsize=2,
-    lineskip=-1.5pt,
-    extendedchars=true,
-    escapeinside=``,
-    breaklines=true,
-    showspaces=false,
-    showstringspaces=false,
-    showtabs=false,
-  }
-}{}
-\newcommand{\cppinput}[1]{
-  \lstinputlisting[
-    language=C++,
-    basicstyle=\footnotesize\ttfamily\zihao{5},
-    keywordstyle=\color{purple}\bfseries\zihao{5},
-    commentstyle=\color{gray},
-    frame=lines,
-    tabsize=2,
-    lineskip=-1.5pt,
-    extendedchars=true,
-    escapeinside=``,
-    breaklines=true,
-    showspaces=false,
-    showstringspaces=false,
-    showtabs=false,
-  ]{#1}
-}
-
-\title{ACM/ICPC Templates}
-\author{Kenshin2438}
+\documentclass[12pt, oneside, UTF8]{ctexbook}
+\input{config/template}
 
 \begin{document}
 
-\begin{titlepage}
-  \newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
-  \centering
-  \includegraphics[width=7cm]{icpc.png}\\[1cm]
-  \quad\\[1.5cm]
-  \textsl{\Large Changsha University of Science and Technology }\\[0.5cm]
-  % \textsl{\large School of Electrical and Electronic Engineering}\\[0.5cm]
-  \makeatletter
-  \HRule \\[0.4cm]
-  { \huge \bfseries \@title }\\[0.3cm]
-  \HRule \\[1.5cm]
-  \begin{minipage}{0.4\textwidth}
-    \centering\large\@author
-  \end{minipage}\\[3cm]
-  \makeatother
-  {\large The Alchemist of Pokémon}\\[2cm]
-  {\large 
-  \emph{When you have eliminated the impossibles, \\whatever remains, however improbable, must be the truth.}
-  }\\[0.5cm]
-  {\large \today}\\[2cm]
-  \vfill
-\end{titlepage}
-
 \frontmatter
+\input{config/cover}
 \tableofcontents
 
 \mainmatter
 \include{content/Misc}
-\include{content/Number Theory}
+\include{content/DataStructure}
 \include{content/Math}
-\include{content/Data Structure}
+\include{content/NumberTheory}
 \include{content/String}
-\include{content/Graph}
-\include{content/Dynamic Programing}
-\include{content/Polynomial}
+% \include{content/Graph}
+% \include{content/DynamicPrograming}
+% \include{content/Polynomial}
 
 \end{document}

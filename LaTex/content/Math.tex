@@ -3,7 +3,36 @@
 \cppinput{../template/math/minimax.hpp}
 
 \section{Combination}
-\cppinput{../template/math/combination.hpp}
+% \cppinput{../template/math/combination.hpp}
+\begin{cpplist}
+mint C(int n, int r) {
+  if (n < 0 || n < r || r < 0) return mint(0);
+  return fac(n) * ifac(r) * ifac(n - r);
+}
+mint P(int n, int r) {
+  if (n < 0 || n < r || r < 0) return mint(0);
+  return fac(n) * ifac(n - r);
+}
+mint S2(int n, int k) {
+  mint res(0);
+  for (int i = 0; i <= k; i++) {
+    mint t = mint(k - i).pow(n) * C(k, i);
+    (i & 1) ? res -= t : res += t;
+  }
+  return res * ifac(k);
+}
+mint B(int n, int k) { // sum_{i=0}^{k} S2(n, i)
+  static vector<mint> sum = { 1 };
+  for (static int i = 1; i <= k; i++) {
+    sum.push_back(sum.back() + (i & 1 ? -ifac(i) : ifac(i)));
+  }
+  mint res(0);
+  for (int i = 1; i <= k; i++) {
+    res += sum[k - i] * mint(i).pow(n) * ifac(i);
+  }
+  return res;
+}
+\end{cpplist}
 
 \section{Stirling Number Query}
 \cppinput{../template/math/stirling_number_module_small_p.hpp}
