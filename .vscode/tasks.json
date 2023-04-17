@@ -4,7 +4,7 @@
     {
       "type": "shell",
       "label": "CppBuildAndRun",
-      "command": "${workspaceFolder}/.vscode/acm-run.ps1",
+      "command": "${workspaceFolder}\\.vscode\\acm-run.ps1",
       "args": [
         "${fileDirname}\\${fileBasenameNoExtension}"
       ],

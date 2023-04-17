@@ -1,28 +1,35 @@
-param($srcPath)
+param( [String] $fileBasenameNoExtension )
 
-$srcTime = $(Get-Item "$srcPath.cpp" -ErrorAction Stop).LastWriteTime 
-try {
-  $exeTime = $(Get-Item "$srcPath.exe" -ErrorAction SilentlyContinue).LastWriteTime 
-} catch {
-  $exeTime = 0
-}
+$sourcePath = "$fileBasenameNoExtension.cpp"
+$outputPath = "$fileBasenameNoExtension.exe"
 
-$myDebug = "D:\\Document\\repos\\Code-of-ACM\\template\\debug"
-
-if ($exeTime -lt $srcTime) {
-  g++ "$srcPath.cpp" -o "$srcPath.exe"    `
-  -Wall -Wextra -Wfloat-equal             `
-  -O2 "-Wl,--stack=536870912"             `
-  -DLOCAL "-I$myDebug"
-
-  Write-Host "$srcPath.exe Build Success" -ForegroundColor Green
+$exeExisted = Test-Path -Path $outputPath
+$srcTime = $(Get-Item $sourcePath).LastWriteTime
+$exeTime = if ($exeExisted) {
+  $(Get-Item $outputPath).LastWriteTime
 } else {
-  Write-Host "$srcPath.exe is up to date" -ForegroundColor Blue
+  New-Object DateTime(1970, 1, 1, 8, 0, 0)
 }
 
-Write-Host ""
+$myDebugPath = "D:\Document\repos\Code-of-ACM\template\debug"
+
+if ((-not $exeExisted) -or ($srcTime -gt $exeTime)) {
+  & { 
+    g++ -Wall -Wextra -Wfloat-equal "-Wl,--stack=536870912" `
+    -DLOCAL "-I$myDebugPath" $sourcePath -o $outputPath
+  }
+  
+  if ($LASTEXITCODE -ne 0) {
+    Write-Host "$sourcePath Build Failed`n" -ForegroundColor Red
+    exit 2438 # something wrong in the source code
+  }
+
+  Write-Host "$sourcePath Build Success`n" -ForegroundColor Green
+} else {
+  Write-Host "$outputPath is up to date`n" -ForegroundColor Cyan
+}
+
 $TimeWatcher = $(Measure-Command -Expression {
-  . "$srcPath.exe" | Write-Host -ForegroundColor DarkGreen
+  & $outputPath | Out-Default
 }).TotalMilliseconds
-Write-Host ""
-Write-Host "Time: $TimeWatcher ms"
+Write-Host "`nTime: $TimeWatcher ms"
