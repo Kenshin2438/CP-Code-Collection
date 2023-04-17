@@ -1,28 +1,24 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-using ll = long long;
-#define all(a) begin(a), end(a)
-#define sz(x) (int)((x).size())
-
 #ifdef LOCAL
 #include "debug.hpp"
 #else
 #define debug(...) 42
 #endif
 
+using ll = long long;
+#define all(a) begin(a), end(a)
+#define sz(x) (int)((x).size())
+
 void solve() {
-  int n; cin >> n;
-  ll ans = 0;
-  for (int i = 0; i < n; i++) {
-    int x; cin >> x;
-    ans += x;
-  }
-  cout << ans << '\n';
+  int n, m; cin >> n >> m;
+  cout << (n - 1) / m + 1 << "\n";
 }
 
 int main() {
   cin.tie(nullptr)->sync_with_stdio(false);
+  cout << fixed << setprecision(15);
 
   int T = 1;
   // cin >> T;

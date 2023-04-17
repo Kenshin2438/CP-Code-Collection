@@ -172,7 +172,6 @@ vector<mint> berlekamp_massey(const vector<mint> &s) {
 }
 mint get(vector<mint> a, ll k) {
   vector<mint> c = berlekamp_massey(a);
-  debug(c);
   return linearRec(a, c, k);
 }
 };
@@ -193,7 +192,7 @@ void solve() {
     750322998,
     651539135
   };
-  cout << LinearRecurrence::get(a, k - 1);
+  cout << LinearRecurrence::get(a, k - 1) << "\n";
 }
 
 int main() {
