@@ -4,11 +4,13 @@
     {
       "type": "shell",
       "label": "CppBuildAndRun",
-      "command": "${workspaceFolder}\\.vscode\\acm-run.ps1",
+      "command": "${workspaceFolder}/.vscode/acm-run.ps1",
       "args": [
-        "${fileDirname}",
         "${fileBasenameNoExtension}"
       ],
+      "options": {
+        "cwd": "${fileDirname}"
+      },
       "group": {
         "kind": "test",
         "isDefault": true
@@ -16,8 +18,8 @@
       "presentation": {
         "echo": false,
         "focus": true,
-        "panel": "shared",
-      },
+        "panel": "shared"
+      }
     }
   ]
 }

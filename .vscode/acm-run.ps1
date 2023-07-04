@@ -1,21 +1,16 @@
-param(
-  [string] $fileDirname,
-  [String] $fileBasenameNoExtension
-)
-Set-Location -Path $fileDirname
+param( [String] $fileBasenameNoExtension )
 
 $source = "$fileBasenameNoExtension.cpp"
 $output = "$fileBasenameNoExtension.exe"
 
-$exeExisted = (Test-Path -Path $output)
+$existed = (Test-Path -Path $output)
 $srcTime = (Get-Item $source).LastWriteTime
-$exeTime = if ($exeExisted) {
+$exeTime = if ($existed) {
   (Get-Item $output).LastWriteTime
 } else {
   [DateTime]::MinValue
 }
 
-$myDebugPath = "D:\Document\repos\Code-of-ACM\template\debug"
 $compilerArgs = @(
   $source,
   "-o",
@@ -24,11 +19,11 @@ $compilerArgs = @(
   "-Wextra",
   "-Wfloat-equal",
   "-Wl,--stack=536870912",
-  "-DLOCAL",
-  "-I$myDebugPath"
+  "-O2",
+  "-DKENSHIN"
 )
 
-if ((-not $exeExisted) -or ($srcTime -gt $exeTime)) {
+if ((-not $existed) -or ($srcTime -gt $exeTime)) {
   & g++ @compilerArgs
 
   if ($LASTEXITCODE -ne 0) {
@@ -41,7 +36,5 @@ if ((-not $exeExisted) -or ($srcTime -gt $exeTime)) {
   Write-Host "$output is up to date`n" -ForegroundColor Cyan
 }
 
-$TimeWatcher = (Measure-Command {
-  & ".\$output" | Out-Default
-}).TotalMilliseconds
-Write-Host "`nTime: $TimeWatcher ms"
+$TimeWatcher = Measure-Command { & ".\$output" | Out-Default }
+Write-Host "`nTime: $( $TimeWatcher.TotalMilliseconds ) ms"

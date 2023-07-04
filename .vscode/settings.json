@@ -92,6 +92,9 @@
     "ios": "cpp",
     "expected": "cpp",
     "spanstream": "cpp",
-    "stacktrace": "cpp"
+    "stacktrace": "cpp",
+    "all": "cpp",
+    "dsu": "cpp",
+    "math": "cpp"
   }
 }
