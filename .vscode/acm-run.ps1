@@ -24,7 +24,7 @@ $compilerArgs = @(
 )
 
 if ((-not $existed) -or ($srcTime -gt $exeTime)) {
-  & sccache g++ @compilerArgs
+  & g++ @compilerArgs
 
   if ($LASTEXITCODE -ne 0) {
     Write-Host "$source Build Failed`n" -ForegroundColor Red
