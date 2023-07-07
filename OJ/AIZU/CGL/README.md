@@ -1,28 +1,28 @@
-## 1_A : Projection
+## 1_A : Projection [**SOLVED**]
 
-## 1_B : Reflection
+## 1_B : Reflection [**SOLVED**]
 
-## 1_C : Counter-Clockwise
+## 1_C : Counter-Clockwise [**SOLVED**]
 
-## 2_A : Parallel/Orthogonal
+## 2_A : Parallel/Orthogonal [**SOLVED**]
 
-## 2_B : Intersection
+## 2_B : Intersection [**SOLVED**]
 
-## 2_C : Cross Point
+## 2_C : Cross Point [**SOLVED**]
 
-## 2_D : Distance
+## 2_D : Distance [**SOLVED**]
 
-## 3_A : Area
+## 3_A : Area [**SOLVED**]
 
-## 3_B : Is-Convex
+## 3_B : Is-Convex [**SOLVED**]
 
-## 3_C : Polygon-Point Containment
+## 3_C : Polygon-Point Containment [**SOLVED**]
 
-## 4_A : Convex Hull
+## 4_A : Convex Hull [**SOLVED**]
 
-## 4_B : Diameter of a Convex Polygon
+## 4_B : Diameter of a Convex Polygon [**SOLVED**]
 
-## 4_C : Convex Cut
+## 4_C : Convex Cut [**SOLVED**]
 
 ## 5_A : Closest Pair
 
