@@ -1,3 +1,51 @@
+# for more information, check out:
+#   - https://clangd.llvm.org/config
+#   - https://clang.llvm.org/extra/clang-tidy/checks/list.html
+#
+# Notes:
+#   - Include Cleaner will not diagnose headers from the Standard Library.
+#     Add --include-cleaner-stdlib flag to enable this UNSTABLE feature.
+---
 CompileFlags:
-  Add: [-Wall, -Wextra, -Wfloat-equal, -DKENSHIN]
+  Add:
+    [
+      -std=gnu++17,
+      -Wall,
+      -Wextra,
+      -Wfloat-equal,
+      -Wshadow,
+      -Wconversion,
+      -Wno-unused-const-variable,
+      -Wno-sign-conversion,
+    ]
   Compiler: g++
+Index:
+  Background: Skip
+  StandardLibrary: Yes
+Diagnostics:
+  ClangTidy:
+    Add:
+      [
+        clang-analyzer-*,
+        bugprone-*,
+        modernize-*,
+        performance-*,
+        readability-*,
+        google-*,
+        misc-*,
+      ]
+    Remove:
+      [
+        readability-braces-around-statements,
+        readability-identifier-length,
+        readability-magic-numbers,
+        readability-isolate-declaration,
+      ]
+  UnusedIncludes: Strict
+InlayHints:
+  Designators: Yes
+  Enabled: Yes
+  ParameterNames: Yes
+  DeducedTypes: Yes
+Hover:
+  ShowAKA: Yes
