@@ -1,0 +1,12 @@
+-std=gnu++20
+-Wall
+-Wextra
+-Wfloat-equal
+-Wshadow
+-Wconversion
+-Wno-sign-conversion
+-Wno-unused-const-variable
+-Wl,--stack=268435456
+-O2
+-DKENSHIN
+-ID:\\Document\\repos\\Code-of-ACM\\include

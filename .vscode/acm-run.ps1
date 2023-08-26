@@ -11,25 +11,10 @@ $exeTime = if ($existed) {
   [DateTime]::MinValue
 }
 
-$compilerArgs = @(
-  $source,
-  "-o",
-  $output,
-  "-std=gnu++17",
-  "-Wall",
-  "-Wextra",
-  "-Wfloat-equal",
-  "-Wshadow",
-  "-Wconversion",
-  "-Wno-sign-conversion",
-  "-Wno-unused-const-variable",
-  "-Wl,--stack=268435456",
-  "-O2",
-  "-DKENSHIN"
-)
+$flags = Get-Content D:\Document\repos\Code-of-ACM\.vscode\compile_flags.txt
 
 if ((-not $existed) -or ($srcTime -gt $exeTime)) {
-  & g++ @compilerArgs
+  & g++ $source -o $output @flags
 
   if ($LASTEXITCODE -ne 0) {
     Write-Host "$source Build Failed`n" -ForegroundColor Red

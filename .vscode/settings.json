@@ -1,6 +1,8 @@
 {
   "clangd.arguments": [
-    "-header-insertion=never",
-    // "--include-cleaner-stdlib",
+    "--compile-commands-dir=${workspaceFolder}/.vscode/",
+    "--background-index",
+    "--clang-tidy",
+    "--header-insertion=never",
   ]
 }
