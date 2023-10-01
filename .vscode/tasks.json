@@ -4,10 +4,13 @@
     {
       "type": "shell",
       "label": "CppBuildAndRun",
-      "command": "${workspaceFolder}/.vscode/acm-run.ps1",
-      "args": [
-        "${fileBasenameNoExtension}"
-      ],
+      "windows": {
+        "command": "${workspaceFolder}/.vscode/acm-run.ps1",
+        "args": [
+          "${fileBasenameNoExtension}",
+          "${workspaceFolder}/.vscode/compile_flags.txt"
+        ]
+      },
       "options": {
         "cwd": "${fileDirname}"
       },

@@ -1,19 +1,21 @@
-param( [String] $fileBasenameNoExtension )
+param(
+  [String] $fileBasenameNoExtension,
+  [String] $compileFlags
+)
 
 $source = "$fileBasenameNoExtension.cpp"
 $output = "$fileBasenameNoExtension.exe"
 
-$existed = (Test-Path -Path $output)
 $srcTime = (Get-Item $source).LastWriteTime
-$exeTime = if ($existed) {
+$exeTime = if (Test-Path -Path $output) {
   (Get-Item $output).LastWriteTime
 } else {
   [DateTime]::MinValue
 }
 
-$flags = Get-Content D:\Document\repos\Code-of-ACM\.vscode\compile_flags.txt
+$flags = Get-Content -Path $compileFlags
 
-if ((-not $existed) -or ($srcTime -gt $exeTime)) {
+if ($srcTime -gt $exeTime) {
   & g++ $source -o $output @flags
 
   if ($LASTEXITCODE -ne 0) {

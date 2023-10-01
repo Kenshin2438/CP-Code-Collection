@@ -38,13 +38,13 @@
     "scope": "c++,cpp,cxx",
     "prefix": "localfile",
     "body": [
-      "#ifdef KENSHIN ",
-      "  std::ifstream input(\"_.in\"); ",
-      "  std::ofstream output(\"_.out\"); ",
+      "#if defined(KENSHIN)",
+      "  std::ifstream input(\"_.in\");",
+      "  std::ofstream output(\"_.out\");",
       "",
-      "  std::cin.rdbuf(input.rdbuf()); ",
-      "  std::cout.rdbuf(output.rdbuf()); ",
-      "#endif "
+      "  std::cin.rdbuf(input.rdbuf());",
+      "  std::cout.rdbuf(output.rdbuf());",
+      "#endif"
     ],
     "description": "local FILE input and output"
   }

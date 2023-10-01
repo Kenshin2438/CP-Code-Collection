@@ -14,9 +14,9 @@ Diagnostics:
       [clang-analyzer-*, bugprone-*, modernize-*, performance-*, misc-unused-*]
   UnusedIncludes: Strict
 InlayHints:
-  Designators: Yes
+  Designators: No
   Enabled: Yes
-  ParameterNames: Yes
+  ParameterNames: No
   DeducedTypes: Yes
 Hover:
   ShowAKA: Yes

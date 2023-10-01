@@ -1,4 +1,4 @@
--std=gnu++20
+-std=c++20
 -Wall
 -Wextra
 -Wfloat-equal
@@ -9,4 +9,4 @@
 -Wl,--stack=268435456
 -O2
 -DKENSHIN
--ID:\\Document\\repos\\Code-of-ACM\\include
+-ID:\Document\repos\Code-of-ACM\include
