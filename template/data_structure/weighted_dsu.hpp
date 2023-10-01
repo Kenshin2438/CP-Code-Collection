@@ -1,10 +1,6 @@
 struct Weighted_DSU {
   vector<int> p, val;
-
-  Weighted_DSU() = default;
   Weighted_DSU(int n) : p(n), val(n) { iota(all(p), 0); }
-  ~Weighted_DSU() = default;
-
   int find(int x) {
     if (x == p[x]) return x;
     int fa = find(p[x]);

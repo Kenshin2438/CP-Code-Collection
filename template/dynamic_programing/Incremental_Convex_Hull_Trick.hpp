@@ -1,32 +1,64 @@
-// https://codeforces.com/contest/1715/problem/E
-// https://loj.ac/p/2035
-// https://ac.nowcoder.com/acm/problem/20352
+template <typename T>
+struct CHTLine {
+  bool isQuery;
+  T k, b;  // line: y = k * x + b
 
-struct Line {
-  mutable ll k, b, x;
-  bool operator < (const Line &rhs) const { return k < rhs.k; }
-  bool operator < (const ll &rhs) const { return x < rhs; }
+  constexpr explicit CHTLine(const T &_k, const T &_b)
+      : isQuery(false), k(_k), b(_b), x(T()) {}
+  constexpr explicit CHTLine(const T &_x)
+      : isQuery(true), k(T()), b(T()), x(_x) {}
+
+  constexpr auto eval(const T &val) const -> T { return k * val + b; }
 };
-// Incremental Convex Hull Trick
-struct CHT : multiset<Line, less<>> {
-  static const ll inf = numeric_limits<ll>::max();
-  // for doubles, use inf = 1/.0, div(a, b) = a / b
-  ll div(ll a, ll b) { return a / b - (ll)((a ^ b) < 0 && a % b); }
-  bool isect(iterator A, iterator B) { // judge intersect
-    if (B == end()) return A->x = inf, false;
-    if (A->k == B->k) A->x = A->b > B->b ? inf : -inf;
-    else A->x = div(B->b - A->b, A->k - B->k);
-    return A->x >= B->x;
+
+template <typename T>
+using FUN = std::function<bool(const CHTLine<T> &, const CHTLine<T> &)>;
+
+template <typename T, class CMP = std::less<T>>
+struct IncrementalConvexHullTrick : public std::multiset<CHTLine<T>, FUN<T>> {
+  using MS = std::multiset<CHTLine<T>, FUN<T>>;
+  using iter = typename MS::iterator;
+
+  static constexpr T INF = std::numeric_limits<T>::max();
+  static constexpr CMP cmp = CMP();
+  static constexpr auto equals(const T &a, const T &b) -> bool {
+    return !cmp(a, b) and !cmp(b, a);
   }
-  void add(ll k, ll b) {
-    iterator C = insert({k, b, 0}), A, B = A = C++;
-    while (isect(B, C)) C = erase(C);
-    if (A != begin() && isect(--A, B)) isect(A, B = erase(B));
-    while ((B = A) != begin() && (--A)->x >= B->x) isect(A, erase(B));
+  static constexpr auto makeFUN() -> FUN<T> {
+    return [=](const CHTLine<T> &a, const CHTLine<T> &b) {
+      return a.isQuery or b.isQuery ? a.x < b.x : cmp(a.k, b.k);
+    };
   }
-  ll get(ll x) const { // get max kx+b
-    assert(!empty()); // debug
-    Line l = *lower_bound(x);
-    return l.k * x + l.b;
+  constexpr IncrementalConvexHullTrick() : MS(makeFUN()) {}
+
+  [[nodiscard]] constexpr auto div(const T &a, const T &b) const -> T {
+    if constexpr (std::is_integral<T>::value) {
+      return a / b - static_cast<T>((a < T()) != (b < T()) and cmp(T(), a % b));
+    } else if (std::is_floating_point<T>::value) {
+      return a / b;
+    }
+  }
+  constexpr auto intersect(iter la, iter lb) -> bool {
+    if (lb == MS::end()) {
+      la->x = INF;
+      return false;
+    }
+    if (equals(la->k, lb->k)) {
+      la->x = cmp(lb->b, la->b) ? INF : -INF;
+    } else {
+      la->x = div(lb->b - la->b, la->k - lb->k);
+    }
+    return la->x >= lb->x;
+  }
+  constexpr auto addLine(const T &k, const T &b) {
+    auto z = MS::emplace(k, b), y = z++, x = y;
+    while (intersect(y, z)) z = MS::erase(z);
+    if (x != MS::begin() && intersect(--x, y)) intersect(x, y = MS::erase(y));
+    while ((y = x) != MS::begin() && (--x)->x >= y->x) {
+      intersect(x, MS::erase(y));
+    }
+  }
+  [[nodiscard]] constexpr auto eval(const T &x) const -> T {
+    return MS::lower_bound(CHTLine<T>(x))->eval(x);
   }
 };

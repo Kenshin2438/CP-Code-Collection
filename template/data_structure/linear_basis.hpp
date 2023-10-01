@@ -1,9 +1,5 @@
-// 实数线性基
-
-template<int mod = 998244353>
-struct Basis {
+template<int mod = 998244353> struct Basis {
   vector<vector<int>> B;
-
   Basis(int n) { B.resize(n, vector<int>(n)); }
   int inv(int x) {
     return x == 1 ? 1 : (mod - mod / x) * 1LL * inv(mod % x) % mod;
@@ -24,13 +20,10 @@ struct Basis {
   }
 };
 
-// 异或线性基
-
 template<typename T> struct Basis {
   vector<T> B;
   int sz = 0;
   bool free = false;
-
   Basis(int n) : B(n) {};
   void insert(T v) {
     for (int i = B.size() - 1; i >= 0; i--) {
