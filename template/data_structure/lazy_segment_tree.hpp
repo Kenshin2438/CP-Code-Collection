@@ -1,113 +1,85 @@
-template <typename T, typename E, T (*ut)(), E (*ue)(), T (*f)(T, T),
-          T (*g)(T, E), E (*h)(E, E)>
-struct LazySegTree {
+template <typename T, typename E, class F, class G, class H>
+struct LazySegmentTree {
  private:
-  int n, _log;
-  vector<T> val;
-  vector<E> laz;
-  void _push(int t) {
-    if (laz[t] == ue()) return;
-    val[t << 1 | 0] = g(val[t << 1 | 0], laz[t]);
-    val[t << 1 | 1] = g(val[t << 1 | 1], laz[t]);
-    if ((t << 1) < n) {
-      laz[t << 1 | 0] = h(laz[t << 1 | 0], laz[t]);
-      laz[t << 1 | 1] = h(laz[t << 1 | 1], laz[t]);
-    }
-    return laz[t] = ue(), void();
+  int N, _log;
+  std::vector<T> dat;
+  std::vector<E> laz;
+  const F f;
+  const G g;
+  const H h;
+  const T ti;
+  const E ei;
+  auto init(int n) -> void {
+    N = 1, _log = 0;
+    while (N < n) N <<= 1, _log++;
+    dat.assign(N << 1, ti);
+    laz.assign(N << 1, ei);
   }
-  void _update(int t) { val[t] = f(val[t << 1 | 0], val[t << 1 | 1]); }
-  void _apply(int t, const E &dif) {
-    if (dif == ue()) return;
-    val[t] = g(val[t], dif);
-    if (t < n) laz[t] = h(laz[t], dif);
+  auto build(const std::vector<T> &v) -> void {
+    int n = (int)v.size();
+    init(n);
+    for (int i = 0; i < n; i++) dat[i + N] = v[i];
+    for (int i = N - 1; i > 0; i--) {
+      dat[i] = f(dat[i << 1 | 0], dat[i << 1 | 1]);
+    }
+  }
+
+  inline auto reflect(int t) const -> T {
+    return laz[t] == ei ? dat[t] : g(dat[t], laz[t]);
+  }
+  inline auto push(int t) -> void {
+    if (laz[t] == ei) return;
+    laz[t << 1 | 0] = h(laz[t << 1 | 0], laz[t]);
+    laz[t << 1 | 1] = h(laz[t << 1 | 1], laz[t]);
+    dat[t] = g(dat[t], laz[t]);
+    laz[t] = ei;
+  }
+  inline auto thrust(int t) -> void {
+    for (int i = _log; i > 0; i--) push(t >> i);
+  }
+  inline auto recalc(int t) -> void {
+    while (t >>= 1) dat[t] = f(reflect(t << 1 | 0), reflect(t << 1 | 1));
   }
 
  public:
-  LazySegTree() = default;
-  LazySegTree(const vector<T> &v) {
-    n = 1, _log = 0;
-    while (n < (int)v.size()) n <<= 1, _log++;
-    T ti = ut();
-    E ei = ue();
-    val.resize(n << 1, ti), laz.resize(n, ei);
-    for (int i = 0; i < (int)v.size(); i++) val[i + n] = v[i];
-    for (int i = n - 1; i > 0; i--) _update(i);
+  LazySegmentTree(int n, F _f, G _g, H _h, T _ti, E _ei)
+      : f(_f), g(_g), h(_h), ti(_ti), ei(_ei) {
+    init(n);
   }
-  ~LazySegTree() = default;
+  LazySegmentTree(const std::vector<T> &v, F _f, G _g, H _h, T _ti, E _ei)
+      : f(_f), g(_g), h(_h), ti(_ti), ei(_ei) {
+    build(v);
+  }
 
-  void update(int l, int r, const E &dif) {
-    if (l == r) return;  // update [l, r)
-    l += n, r += n;
-    for (int i = _log; i >= 1; i--) {
-      if (((l >> i) << i) != l) _push(l >> i);
-      if (((r >> i) << i) != r) _push((r - 1) >> i);
-    }
+  auto set(int p, const T &val) -> void {
+    thrust(p += N);
+    dat[p] = val;
+    laz[p] = ei;
+    recalc(p);
+  }
+  auto get(int p) -> T {
+    thrust(p += N);
+    return reflect(p);
+  }
+  auto update(int l, int r, const E &dif) -> void {  // [l, r)
+    if (l >= r) return;
+    l += N, r += N;
+    thrust(l), thrust(r - 1);
     for (int a = l, b = r; a < b; a >>= 1, b >>= 1) {
-      if (a & 1) _apply(a++, dif);
-      if (b & 1) _apply(--b, dif);
+      if (a & 1) laz[a] = h(laz[a], dif), a++;
+      if (b & 1) --b, laz[b] = h(laz[b], dif);
     }
-    for (int i = 1; i <= _log; i++) {
-      if (((l >> i) << i) != l) _update(l >> i);
-      if (((r >> i) << i) != r) _update((r - 1) >> i);
-    }
+    recalc(l), recalc(r - 1);
   }
-  void set(int p, const T &dif) {
-    p += n;
-    for (int i = _log; i >= 1; i--) _push(p >> i);
-    val[p] = dif;
-    for (int i = 1; i <= _log; i++) _update(p >> i);
-  }
-  T get(int p) {
-    p += n;
-    for (int i = _log; i >= 1; i--) _push(p >> i);
-    return val[p];
-  }
-  T query(int l, int r) {
-    if (l == r) return ut();
-    l += n, r += n;
-    for (int i = _log; i >= 1; i--) {
-      if (((l >> i) << i) != l) _push(l >> i);
-      if (((r >> i) << i) != r) _push((r - 1) >> i);
-    }
-    T L = ut(), R = ut();
+  auto query(int l, int r) -> T {  // [l, r)
+    if (l >= r) return ti;
+    l += N, r += N;
+    thrust(l), thrust(r - 1);
+    T L = ti, R = ti;
     for (int a = l, b = r; a < b; a >>= 1, b >>= 1) {
-      if (a & 1) L = f(L, val[a++]);
-      if (b & 1) R = f(val[--b], R);
+      if (a & 1) L = f(L, reflect(a++));
+      if (b & 1) R = f(reflect(--b), R);
     }
     return f(L, R);
   }
 };
-
-namespace SegTreeUtil {  // Utilization
-template <typename T>
-T Merge_T(T a, T b) {
-  return max(a, b);
-}
-template <typename T, typename E>
-T Modify(T a, E b) {
-  return max(a, b);
-}
-template <typename E>
-E Merge_E(E a, E b) {
-  return max(a, b);
-}
-template <typename T>
-T Init_T() {
-  return 0;
-}
-template <typename E>
-E Init_E() {
-  return 0;
-}
-template <typename T, typename E>
-struct Tree : LazySegTree<T, E, Init_T<T>, Init_E<E>, Merge_T<T>, Modify<T, E>,
-                          Merge_E<E>> {
-  using base = LazySegTree<T, E, Init_T<T>, Init_E<E>, Merge_T<T>, Modify<T, E>,
-                           Merge_E<E>>;
-
-  Tree() = default;
-  Tree(const vector<T> &v) : base(v) {}
-  ~Tree() = default;
-};
-}  // namespace SegTreeUtil
-using SegTreeUtil::Tree;
