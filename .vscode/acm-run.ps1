@@ -1,6 +1,7 @@
 param(
   [String] $fileBasenameNoExtension,
-  [String] $compileFlags
+  [String] $compileFlags,
+  [String] $includePath
 )
 
 $source = "$fileBasenameNoExtension.cpp"
@@ -16,7 +17,8 @@ $exeTime = if (Test-Path -Path $output) {
 $flags = Get-Content -Path $compileFlags
 
 if ($srcTime -gt $exeTime) {
-  & g++ $source -o $output @flags
+  & g++ $source -o $output @flags -I"$includePath" `
+      -DKENSHIN # "-Wl,--stack=268435456" --verbose
 
   if ($LASTEXITCODE -ne 0) {
     Write-Host "$source Build Failed`n" -ForegroundColor Red
@@ -29,4 +31,4 @@ if ($srcTime -gt $exeTime) {
 }
 
 $TimeWatcher = Measure-Command { & ".\$output" | Out-Default }
-Write-Host "`nTime: $( $TimeWatcher.TotalMilliseconds ) ms"
+Write-Host "`nTime: $( $TimeWatcher.Milliseconds ) ms"

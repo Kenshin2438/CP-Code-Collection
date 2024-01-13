@@ -15,7 +15,7 @@ Diagnostics:
   UnusedIncludes: Strict
 InlayHints:
   Designators: No
-  Enabled: Yes
+  Enabled: No
   ParameterNames: No
   DeducedTypes: Yes
 Hover:

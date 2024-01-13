@@ -1,8 +1,11 @@
 {
   "clangd.arguments": [
     "--compile-commands-dir=${workspaceFolder}/.vscode/",
-    "--background-index",
+    "--all-scopes-completion",
     "--clang-tidy",
-    "--header-insertion=never",
+    "--completion-style=detailed",
+    "--header-insertion=iwyu",
+    // "--log=verbose",
+    // "--pretty",
   ]
 }

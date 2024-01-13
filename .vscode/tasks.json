@@ -8,7 +8,8 @@
         "command": "${workspaceFolder}/.vscode/acm-run.ps1",
         "args": [
           "${fileBasenameNoExtension}",
-          "${workspaceFolder}/.vscode/compile_flags.txt"
+          "${workspaceFolder}/.vscode/compile_flags.txt",
+          "${workspaceFolder}/include/",
         ]
       },
       "options": {

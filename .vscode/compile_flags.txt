@@ -1,4 +1,4 @@
--std=c++20
+-O2
 -Wall
 -Wextra
 -Wfloat-equal
@@ -6,7 +6,4 @@
 -Wconversion
 -Wno-sign-conversion
 -Wno-unused-const-variable
--Wl,--stack=268435456
--O2
--DKENSHIN
--ID:\Document\repos\Code-of-ACM\include
+-std=c++14
