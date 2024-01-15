@@ -4,3 +4,4 @@
 Language: Cpp
 BasedOnStyle: Google
 IndentPPDirectives: BeforeHash
+ContinuationIndentWidth: 2
