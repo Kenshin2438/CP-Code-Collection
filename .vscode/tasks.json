@@ -12,6 +12,9 @@
           "${workspaceFolder}/include/",
         ]
       },
+      "linux": {
+        "command": "cat ${workspaceFolder}/.vscode/compile_flags.txt | xargs g++ ${fileBasename} && ./a.out"
+      },
       "options": {
         "cwd": "${fileDirname}"
       },
