@@ -1,29 +1,36 @@
+#pragma once
+
+#include <cstdint>
+#include <iostream>
+#include <utility>
+
 template <uint32_t mod>
-struct LazyMontgomeryModInt {
+class LazyMontgomeryModInt {
+ private:
   using i32 = int32_t;
   using u32 = uint32_t;
   using i64 = int64_t;
   using u64 = uint64_t;
 
   static constexpr u32 n2 = -u64(mod) % mod;
-  static constexpr auto get_r() -> u32 {
+  static constexpr u32 r {[]() -> u32 {
     u32 res(mod);
     for (i32 i = 0; i < 4; i++) res *= 2 - mod * res;
     return res;
-  }
-  static constexpr u32 r = get_r();
+  }()};
   static_assert(r * mod == 1, "invalid, r * mod != 1");
   static_assert(mod < (1 << 30), "invalid, mod >= 2 ^ 30");
 
-  static constexpr auto get_mod() -> u32 { return mod; }
   static constexpr auto reduce(const u64 &b) -> u32 {
     return u32((b + u64(u32(b) * u32(-r)) * mod) >> 32);
   }
 
-  u32 val;
+  u32 val = 0U;
+
+ public:
   constexpr LazyMontgomeryModInt() = default;
   constexpr LazyMontgomeryModInt(const i64 &b)
-      : val(reduce(u64(b % mod + mod) * n2)) {}
+    : val(reduce(u64(b % mod + mod) * n2)) {}
 
   [[nodiscard]] constexpr auto get() const -> u32 {
     u32 res = reduce(val);
@@ -87,7 +94,7 @@ struct LazyMontgomeryModInt {
       std::swap(x, y);
       std::swap(u, v);
     }
-    return mint{u};
+    return mint {u};
   }
 
   friend auto operator<<(std::ostream &os, const mint &b) -> std::ostream & {
@@ -100,4 +107,3 @@ struct LazyMontgomeryModInt {
     return (is);
   }
 };
-using mint = LazyMontgomeryModInt<998'244'353>;

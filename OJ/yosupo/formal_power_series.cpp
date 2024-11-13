@@ -464,5 +464,3 @@ int main() {
 
   return 0;
 }
-
-(x1 + x2) / 2

@@ -1,6 +1,13 @@
+#include <complex>
+#include <vector>
+#include <cmath>
+
+using std::vector;
+using std::complex;
+
 using C = complex<double>;
 void FFT(vector<C> &a) {
-  int n = sz(a), L = 31 - __builtin_clz(n);
+  int n = std::size(a), L = 31 - __builtin_clz(n);
   static vector<complex<long double>> R(2, 1);
   static vector<C> rt(2, 1);
   for (static int k = 2; k < n; k <<= 1) {
@@ -27,18 +34,19 @@ void FFT(vector<C> &a) {
   }
 }
 
-using Poly = vector<ll>;
+using i64 = long long int;
+using Poly = vector<i64>;
 template <int M>
 Poly convMod(const Poly &a, const Poly &b) {
   if (a.empty() || b.empty()) return {};
-  Poly res(sz(a) + sz(b) - 1);
-  int B = 32 - __builtin_clz(sz(res));
+  Poly res(std::size(a) + std::size(b) - 1);
+  int B = 32 - __builtin_clz(std::ssize(res));
   int n = 1 << B, S = sqrt(M);
   vector<C> L(n), R(n), outs(n), outl(n);
-  for (int i = 0; i < sz(a); i++) {
+  for (int i = 0; i < std::size(a); i++) {
     L[i] = C(int(a[i] / S), int(a[i] % S));
   }
-  for (int i = 0; i < sz(b); i++) {
+  for (int i = 0; i < std::size(b); i++) {
     R[i] = C(int(b[i] / S), int(b[i] % S));
   }
   FFT(L), FFT(R);
@@ -48,10 +56,10 @@ Poly convMod(const Poly &a, const Poly &b) {
     outs[j] = (L[i] - conj(L[j])) * R[i] / (2.0 * n) / 1i;
   }
   FFT(outl), FFT(outs);
-  for (int i = 0; i < sz(res); i++) {
-    ll A = ll(imag(outs[i]) + 0.5) % M;
-    ll B = (ll(imag(outl[i]) + 0.5) + ll(real(outs[i]) + 0.5)) % M * S % M;
-    ll C = ll(real(outl[i]) + 0.5) % M * (S * S % M) % M;
+  for (int i = 0; i < std::size(res); i++) {
+    i64 A = i64(imag(outs[i]) + 0.5) % M;
+    i64 B = (i64(imag(outl[i]) + 0.5) + i64(real(outs[i]) + 0.5)) % M * S % M;
+    i64 C = i64(real(outl[i]) + 0.5) % M * (S * S % M) % M;
     res[i] = (A + B + C) % M;
   }
   return res;
