@@ -1,4 +1,3 @@
--O2
 -Wall
 -Wextra
 -Wfloat-equal
@@ -6,4 +5,5 @@
 -Wconversion
 -Wno-sign-conversion
 -Wno-unused-const-variable
--std=c++14
+-pedantic
+-std=c++20

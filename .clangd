@@ -12,6 +12,8 @@ Diagnostics:
   ClangTidy:
     Add:
       [clang-analyzer-*, bugprone-*, modernize-*, performance-*, misc-unused-*]
+    CheckOptions:
+      bugprone-easily-swappable-parameters.MinimumLength: 3
   UnusedIncludes: Strict
 InlayHints:
   Designators: No
