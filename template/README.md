@@ -1,43 +1,36 @@
-## 使用`tree`生成目录树
+## Content
 
-```bash
-$ tree -I "*.gch|*.exe|*.cpp__tests" | clip.exe
+```
 .
-├── README.md
+├── main.cpp
 ├── data_structure
-│   ├── KD_tree.hpp
 │   ├── chtholly_tree.hpp
 │   ├── disjoint_set_union.hpp
+│   ├── dsu_on_tree.hpp
 │   ├── fenwick_tree.hpp
+│   ├── fenwick_tree_range.hpp
+│   ├── FHQ_Treap.md
 │   ├── hash_map.hpp
+│   ├── KD_tree.hpp
 │   ├── lazy_segment_tree.hpp
 │   ├── linear_basis.hpp
 │   ├── ordered_set.hpp
 │   ├── rollback_dsu.hpp
 │   ├── segment_tree.hpp
 │   ├── sparse_table.hpp
+│   ├── tree_hash.hpp
 │   └── weighted_dsu.hpp
-├── debug
-│   ├── debug.hpp
-│   ├── random_number.hpp
-│   └── test.bat
 ├── dynamic_programing
+│   ├── dynamic_bitset_using_template.md
 │   ├── Incremental_Convex_Hull_Trick.hpp
 │   └── Matrix.hpp
 ├── geometry
-│   ├── Area_of_Two_Circles_Intersection.cpp
-│   └── Melkman.hpp
+│   └── geometry.hpp
 ├── graph
-│   ├── bellman_ford.hpp
-│   ├── dijkstra.hpp
 │   ├── dinic.hpp
 │   ├── kosaraju.hpp
-│   ├── lca_rmq.hpp
 │   ├── lowlink.hpp
-│   ├── manhattan_mst.hpp
-│   ├── spfa.hpp
-│   └── toposort.hpp
-├── main.hpp
+│   └── manhattan_mst.hpp
 ├── math
 │   ├── combination.hpp
 │   ├── minimax.hpp
@@ -45,28 +38,29 @@ $ tree -I "*.gch|*.exe|*.cpp__tests" | clip.exe
 ├── misc
 │   ├── BS.hpp
 │   ├── int128.hpp
+│   ├── mdarray.hpp
 │   ├── mint.hpp
-│   └── tree_hash.hpp
+│   ├── Mo.md
+│   ├── random_number.hpp
+│   └── test.bat
 ├── number_theory
 │   ├── BSGS.hpp
 │   ├── Cipolla.hpp
-│   ├── Tonelli_Shanks.hpp
-│   ├── eratosthenes.hpp
 │   ├── exgcd.hpp
 │   ├── inv.hpp
-│   └── miller_rabin.hpp
+│   ├── miller_rabin.hpp
+│   └── Tonelli_Shanks.hpp
 ├── polynomial
-│   ├── FFT-Mod.hpp
 │   ├── FFT.hpp
-│   ├── lagrange.hpp
-│   └── poly.cpp
+│   ├── FFT-Mod.hpp
+│   └── lagrange.hpp
 └── strings
-    ├── LPS_and_Z.md
-    ├── hash.hpp
+    ├── AhoCorasick.hpp
     ├── kmp.hpp
-    ├── suffix_array_SA_IS.hpp
+    ├── LPS_and_Z.md
     ├── suffix_array_doubling.hpp
+    ├── suffix_array_SA_IS.hpp
     └── z_algorithm.hpp
 
-10 directories, 54 files
+10 directories, 51 files
 ```
