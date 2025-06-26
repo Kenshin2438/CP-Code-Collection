@@ -8,17 +8,10 @@
 ---
 CompileFlags:
   Compiler: g++
+  Add: [ "-I../include/" ] # Relative path to compile-commands-dir (CDB)
 Diagnostics:
   ClangTidy:
     Add:
       [clang-analyzer-*, bugprone-*, modernize-*, performance-*, misc-unused-*]
     CheckOptions:
       bugprone-easily-swappable-parameters.MinimumLength: 3
-  UnusedIncludes: Strict
-InlayHints:
-  Designators: No
-  Enabled: No
-  ParameterNames: No
-  DeducedTypes: Yes
-Hover:
-  ShowAKA: Yes

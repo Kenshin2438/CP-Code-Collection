@@ -1,11 +1,7 @@
-param(
-  [String] $fileBasenameNoExtension,
-  [String] $compileFlags,
-  [String] $includePath
-)
+param( [String] $FileBasenameNoExtension )
 
-$source = "$fileBasenameNoExtension.cpp"
-$output = "$fileBasenameNoExtension.exe"
+$source = "$FileBasenameNoExtension.cpp"
+$output = "$FileBasenameNoExtension.exe"
 
 $srcTime = (Get-Item $source).LastWriteTime
 $exeTime = if (Test-Path -Path $output) {
@@ -14,11 +10,9 @@ $exeTime = if (Test-Path -Path $output) {
   [DateTime]::MinValue
 }
 
-$flags = Get-Content -Path $compileFlags
-
 if ($srcTime -gt $exeTime) {
-  & g++ $source -o $output @flags -I"$includePath" `
-      -DKENSHIN # "-Wl,--stack=268435456" --verbose
+  $flags = Get-Content -Path "$PSScriptRoot\compile_flags.txt"
+  & g++ @flags $source -o $output "-Wl,--stack=268435456"
 
   if ($LASTEXITCODE -ne 0) {
     Write-Host "$source Build Failed`n" -ForegroundColor Red

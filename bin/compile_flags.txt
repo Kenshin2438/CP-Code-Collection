@@ -3,7 +3,7 @@
 -Wfloat-equal
 -Wshadow
 -Wconversion
--Wno-sign-conversion
--Wno-unused-const-variable
 -pedantic
 -std=c++20
+-O2
+-DKENSHIN=2438

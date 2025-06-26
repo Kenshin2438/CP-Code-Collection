@@ -1,0 +1,6 @@
+{
+  "context": "Editor && extension==cpp",
+  "bindings": {
+    "ctrl-'": ["task::Spawn", { "task_name": "CP: compile and run" }]
+  }
+}

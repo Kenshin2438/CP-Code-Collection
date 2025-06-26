@@ -1,0 +1,18 @@
+{
+  "lsp": {
+    "clangd": {
+      "binary": {
+        "arguments": [
+          "--compile-commands-dir=bin/",
+          "--enable-config",
+          "--clang-tidy",
+          "--all-scopes-completion",
+          "--completion-style=detailed"
+        ]
+      }
+    }
+  },
+  "edit_predictions": {
+    "mode": "subtle"
+  }
+}
