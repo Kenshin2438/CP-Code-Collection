@@ -1,5 +1,8 @@
 param( [String] $FileBasenameNoExtension )
 
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+[Console]::InputEncoding  = [System.Text.Encoding]::UTF8
+
 $source = "$FileBasenameNoExtension.cpp"
 $output = "$FileBasenameNoExtension.exe"
 
@@ -12,7 +15,7 @@ $exeTime = if (Test-Path -Path $output) {
 
 if ($srcTime -gt $exeTime) {
   $flags = Get-Content -Path "$PSScriptRoot\compile_flags.txt"
-  & g++ @flags $source -o $output "-Wl,--stack=268435456"
+  & g++ @flags $source -o $output # "-Wl,--stack=268435456"
 
   if ($LASTEXITCODE -ne 0) {
     Write-Host "$source Build Failed`n" -ForegroundColor Red
