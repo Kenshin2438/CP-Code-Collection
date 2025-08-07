@@ -6,6 +6,9 @@
 #   - Include Cleaner will not diagnose headers from the Standard Library.
 #     Add flag `--include-cleaner-stdlib` to enable this UNSTABLE feature.
 ---
+If:
+  PathMatch: [.*\.cpp, .*\.hpp]
+  PathExclude: include/dbg/.*
 CompileFlags:
   Compiler: g++
   Add: [ "-I../include/" ] # Relative path to compile-commands-dir (CDB)

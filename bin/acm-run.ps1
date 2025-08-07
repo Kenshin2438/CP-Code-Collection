@@ -27,5 +27,7 @@ if ($srcTime -gt $exeTime) {
   Write-Host "$output is up to date`n" -ForegroundColor Cyan
 }
 
-$TimeWatcher = Measure-Command { & ".\$output" | Out-Default }
+$TimeWatcher = Measure-Command -Expression {
+  . ".\$output" | Write-Host -ForegroundColor Yellow
+}
 Write-Host "`nTime: $( $TimeWatcher.Milliseconds ) ms"
