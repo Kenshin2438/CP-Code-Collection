@@ -1,44 +1,82 @@
 #pragma once
 
+#include <algorithm>
+#include <bit>
 #include <cassert>
+#include <cstddef>
+#include <optional>
 #include <vector>
 
 namespace kenshin::DS {
+  /**
+   * Combiner Functions (maybe non-commutative)
+   */
   template <typename T>
-  using BinaryOperatorFuncPtr = T (*)(const T &, const T &);
+  using BinaryFunctionPtr = T (*)(const T &, const T &);
 
-  template <typename T, T const ut, BinaryOperatorFuncPtr<T> merge>
+  /**
+   * Bottom-up Segment Tree
+   */
+  template <typename T, T const ut, BinaryFunctionPtr<T> const merge>
   class SegmentTree {
    private:
-    int N = 1, _log = 0;
-    std::vector<T> val {};
+    static inline constexpr std::size_t ROOT = 1;
+    std::vector<T> data;
+    std::size_t INDEX;  // index of the leftmost leaf node
 
-    constexpr void _update(int t) noexcept {
-      val[t] = merge(val[t << 1 | 0], val[t << 1 | 1]);
+    inline auto update(std::size_t node) noexcept -> void {
+      data[node] = merge(data[node << 1 | 0], data[node << 1 | 1]);
     }
 
    public:
-    constexpr explicit SegmentTree(const std::vector<T> &v) {
-      while (N < std::ssize(v)) N <<= 1, _log++;
-      val.resize(N << 1, ut);
-      for (int i = 0; const T &x : v) val[N + (i++)] = x;
-      for (int i = N - 1; i > 0; i--) _update(i);
+    constexpr explicit SegmentTree(const std::size_t &N) {
+      INDEX = std::bit_ceil(N);
+      data.resize(2 * INDEX, ut);
     }
 
-    constexpr void set(int p, const T &dif) {
-      val[p += N] = dif;
-      for (int i = 1; i <= _log; i++) _update(p >> i);
+    template <std::ranges::input_range R>
+      requires std::convertible_to<std::ranges::range_value_t<R>, T>
+    constexpr explicit SegmentTree(R &&range)
+      : data(std::ranges::begin(range), std::ranges::end(range)) {
+      INDEX = std::bit_ceil(range.size());
+      data.resize(2 * INDEX, ut);
+      std::ranges::rotate(data, data.begin() + INDEX);
+      for (auto node = INDEX - 1; node != 0; node--) update(node);
     }
-    [[nodiscard]] constexpr auto get(int p) const -> T { return val[p + N]; }
-    [[nodiscard]] constexpr auto query(int l, int r) const -> T {
-      assert(l < r && "SegmentTree query interval [l, r) is invalid!");
+
+    auto set(std::size_t pos, const T &val) -> void {
+      data[pos += INDEX] = val;
+      while (pos != ROOT) update(pos >>= 1);
+    }
+    [[nodiscard]] auto get(std::size_t pos) const -> T {
+      return data[pos + INDEX];
+    }
+    [[nodiscard]] auto query(std::size_t l, std::size_t r) const -> T {
+      assert((l <= r) && "SegmentTree query interval [l, r) is invalid!");
       if (l == r) return ut;
+      l += INDEX, r += INDEX;
       T L = ut, R = ut;
-      for (l += N, r += N; l < r; l >>= 1, r >>= 1) {
-        if (l & 1) L = merge(L, val[l++]);
-        if (r & 1) R = merge(val[--r], R);
+      for (auto a = l, b = r; a < b; a >>= 1, b >>= 1) {
+        if (a & 1) L = merge(L, data[a++]);
+        if (b & 1) R = merge(data[--b], R);
       }
       return merge(L, R);
     }
+    [[nodiscard]] auto query_all() const -> T { return data[ROOT]; }
+
+    template <typename UnaryPred>
+    [[nodiscard]] auto leftmost_if(const UnaryPred &pred) const
+      -> std::optional<std::size_t> {
+      if (not pred(data[ROOT])) return std::nullopt;
+      auto node = ROOT;
+      while (node < INDEX) {
+        if (pred(data[node << 1 | 0])) {
+          node = node << 1 | 0;
+        } else {
+          node = node << 1 | 1;
+        }
+      }
+      return node - INDEX;
+    }
   };
-};  // namespace kenshin::DS
+}  // namespace kenshin::DS
