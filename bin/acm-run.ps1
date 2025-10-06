@@ -14,7 +14,8 @@ $exeTime = if (Test-Path -Path $output) {
 }
 
 if ($srcTime -gt $exeTime) {
-  $flags = Get-Content -Path "$PSScriptRoot\compile_flags.txt"
+  $ScriptDir = Split-Path $MyInvocation.MyCommand.Path -Parent
+  $flags = Get-Content -Path "$ScriptDir\compile_flags.txt"
   & g++ @flags $source -o $output # "-Wl,--stack=268435456"
 
   if ($LASTEXITCODE -ne 0) {

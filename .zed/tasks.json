@@ -4,6 +4,12 @@
     "cwd": "$ZED_DIRNAME",
     "env": { "CPLUS_INCLUDE_PATH": "$ZED_WORKTREE_ROOT/include/" },
     "command": "$ZED_WORKTREE_ROOT/bin/acm-run $ZED_STEM",
+    "shell": {
+      "with_arguments": {
+        "program": "pwsh",
+        "args": ["-NoLogo", "-NoProfile"]
+      }
+    },
     "show_summary": true,
     "show_command": false
   }
